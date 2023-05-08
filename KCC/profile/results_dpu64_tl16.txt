@@ -1,0 +1,14 @@
+Allocated 64 DPU(s)
+NR_TASKLETS 64 BLOCK_LENGTH 1024
+Params: -n 3805 -k 7 -d 2
+
+Rep 0: Outputs are equal	 DPU cost: 167533	 Linear cost: 163433
+Rep 1: Outputs are equal	 DPU cost: 167533	 Linear cost: 163433
+Rep 2: Outputs are equal	 DPU cost: 167533	 Linear cost: 163433
+Rep 3: Outputs are equal	 DPU cost: 167533	 Linear cost: 163433
+
+
+Tempi medi:
+CPU-DPU: 0.461333(ms)	DPU Kernel: 1981.302000(ms)	DPU-CPU e centri finali: 0.174667(ms)	CPU: 0.424333(ms)
+
+
