@@ -15,7 +15,20 @@
 #define DPU_BINARY1 "./bin/dpu_code1"
 #define DPU_BINARY2 "./bin/dpu_code2"
 
-/*L'algoritmo consiste in un dataset al quale viene applicato l'algoritmo k center clustering. Per dataset di grandi dimensioni suddivido il dataset tra le DPU e su ciascuna
+/*FARTHEST FIRST TRAVERSAL ALGORITHM
+L'input è l'insieme P di N punti da uno spazio metrico (M, d) e un intero k >= 1. L'output invece è un insieme S di k centri che è una buona soluzione per il
+problema del k center. L'algoritmo inizia scegliendo un punto arbitrario dal dataset come primo centro. Da questo scelgo il punto più lontano che sarà il mio secondo
+centro. Da ora in avanti scelgo come centro il punto con distanza maggiore dai centri già scelti (vedi slide 48) finchè i centri non sono k.
+L'algoritmo aumenta di un fattore due la soluzione ottima per il problema del k center clustering. RICORDA DI SCRIVERE NELLA TESI che la fft è molto sensibile a 
+dataset con rumore (OUTLIERS). La FFT richiede k - 1 scan del dataset P: impraticabile per P massivi e k non piccoli. Come possiamo quindi dare una buona soluzione
+al problema del k center quando abbiamo un dataset troppo grande per una singola macchina? Utilizziamo la composable coreset techinque. Suddividiamo il dataset in
+l coreset e a ciascuno applichiamo la FFT. Da ciascun coreset ottengo k centri. Li riunisco tutti in un sottoinsieme T (con l per k punti) di P al quale applico
+per l'ultima volta la FFT. Versione di FFT nota come MapReduce FFT. Tale versione aumenta di un fattore 4 la soluzione ottima del problema k center. La MRFFT la si
+dovrebbe usare su massivi dataset*/
+
+/*Il k-center clustering è un problema di ottimizzazione. La soluzione è un sottoinsieme dell'intero dataset, che contiene k punti corrispondenti ai vari centri
+L'obiettivo dell'algoritmo è minimizzare la distanza massima tra un punto appartenente ad un cluster e il centro di quel cluster
+L'algoritmo consiste in un dataset al quale viene applicato l'algoritmo k center clustering. Per dataset di grandi dimensioni suddivido il dataset tra le DPU e su ciascuna
 applico l'algoritmo. Sulla CPU faccio la stessa cosa per un controllo di velocità e inoltre applico l'algoritmo all'intero dataset senza spezzettarlo.
 Descrizione dei risultati ottenuti:
 DPU cost: costo dell'algoritmo spezzettando il dataset

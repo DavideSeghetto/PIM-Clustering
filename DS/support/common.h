@@ -115,7 +115,7 @@ uint32_t get_block_size(uint32_t point_dim) {
     #define INIT_VAL (_INIT_VAL_(18446744073709551615))
 
     //Calcola |a-b|^exp usando l'esponenziazione per quadratura.
-    D power(T a, T b, uint32_t exp) {   //DEVO MODIFICARE QUESTA FUNZIONE
+    D power(T a, T b, uint32_t exp) {   //DEVO MODIFICARE QUESTA FUNZIONE, DOVRÒ QUINDI MODIFICARE ANCHE LA FUNZIONE CHE CALCOLA LA DISTANZA TRA DUE PUNTI
         D base = (a >= b) ? a-b : b-a;
         D res = 1;
         while (exp > 0) {
