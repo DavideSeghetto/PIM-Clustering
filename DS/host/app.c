@@ -15,12 +15,30 @@
 #define DPU_BINARY1 "./bin/dpu_code1"
 #define DPU_BINARY2 "./bin/dpu_code2"
 
+/*L'algoritmo consiste in un dataset al quale viene applicato l'algoritmo k center clustering. Per dataset di grandi dimensioni suddivido il dataset tra le DPU e su ciascuna
+applico l'algoritmo. Sulla CPU faccio la stessa cosa per un controllo di velocità e inoltre applico l'algoritmo all'intero dataset senza spezzettarlo.
+Descrizione dei risultati ottenuti:
+DPU cost: costo dell'algoritmo spezzettando il dataset
+Linear cost: costo dell'algoritmo facendolo linearmente sulla CPU
+L'approccio lineare, ossia senza spezzettare il dataset deve avere un costo minore, deve essere cioè più preciso perchè appunto non applico "approssimazioni" al dataset 
+(spezzettamenti). Il problema è NP Hard (ricontrolla questa terminologia), quindi si può risolvere solo in un tempo esponenziale. L'algoritmo lineare K center clustering
+è quindi un'approssimazione. Se ad esempio il risultato ottimo del problema è 15, l'approccio lineare mi darà nel migliore dei casi un risultato pari a 30. Quindi
+la correttezza diminuisce di un fattore 2. Mentre con l'approccio fft (spezzettato) la correttezza diminuisce di un fattore 4 (arrivo nel migliore dei casi a 60).
+In sostanza il costo, più piccolo è meglio è. Il costo dell'algoritmo è la distanza più grande di un punto dal suo centro (spiegazione minuto 39 - 40 audio).
+CPU-DPU è il tempo di caricamento dei dati nelle DPU
+DPU Kernel è il tempo di esecuzione dell'algoritmo spezzettato nelle DPU
+DPU - CPU e centri finali è il tempo di spostamento dei centri calcolati nelle DPU alla CPU e il calcolo dell'ultima passata nella CPU per il calcolo finale dei centri
+Il tempo totale dell'algoritmo spezzettato (che quindi include il caricamento dei dati nelle DPU, l'esecuzione nelle varie DPU, lo spostamento dei centri intermedi nella CPU
+e l'esecuzione dell'ultima passata nella CPU) è la somma di questi tre tempi
+CPU invece è il tempo per fare l'algoritmo sempre con spezzettamento ma nella CPU (ovviamente stessi parametri, stesso dataset, stesse partizioni)
+Il tempo di esecuzione dell'algoritmo completo senza spezzettamento nella CPU non è calcolato, si potrebbe aggiungere se utile
+Outputs are equal mi indica che l'algoritmo runnato sulle DPU e quello runnato sulle CPU ha dato lo stesso risultato, ovvero gli stessi centri*/
 
 //Buffer contenente tutti i punti.
 static T* P; 
 
 //Buffer per i centri calcolati dalle dpu.
-static T* C; //Buffer centri finali dpu.
+static T* C; //Buffer centri finali dpu. C LO OTTENGO APPLICANDO FFT AD R
 static T* R; //Buffer centri INTERMEDI calcolati da ogni dpu.
 
 //Buffer per i centri calcolati dall'host per verificare i risultati.
@@ -37,7 +55,7 @@ static void init_dataset(T* points_buffer, char *path) {
     char *num;
 
     while (feof(ds) != true) {
-        fgets(row, 100, ds);
+        num = fgets(row, 100, ds);
         num = strtok(row, ",");
 
         while(num != NULL) {
@@ -56,7 +74,8 @@ static void init_dataset(T* points_buffer, char *path) {
     fclose(ds);
 }
 
-//Estrae "n_points" centri da "points_buffer" inserrendoli in "centers_buffer".
+
+//Estrae "n_points" (k) centri da "points_buffer" (insieme di punti che gli passo) inserrendoli in "centers_buffer".
 static void get_centers(T* point_buffer, T* centers_buffer, uint32_t n_points, uint32_t n_centers, uint32_t dim, uint32_t first_offset) {
     
     //Scelgo "a caso" il primo centro.
@@ -77,7 +96,8 @@ static void get_centers(T* point_buffer, T* centers_buffer, uint32_t n_points, u
                 D dist = 0;
             
                 for (unsigned int k = 0; k < dim; k++) {
-                    dist += power(point_buffer[point_index+k], centers_buffer[center_index+k], dim); //TODO: non gestisce overflow.
+                    //CALCOLO DISTANZA TRA DUE PUNTI
+                    dist += power(point_buffer[point_index+k], centers_buffer[center_index+k], dim); //TODO: non gestisce overflow. TOGLI DIM E METTI DISTANZA EUCLIDEA(?) MINUTO 1:09
                 }
 
                 min_center_dist = (dist < min_center_dist) ? dist : min_center_dist;
@@ -96,6 +116,8 @@ static void get_centers(T* point_buffer, T* centers_buffer, uint32_t n_points, u
 
 }
 
+//Esecuzione dell'algoritmo spezzettato solo sulla CPU. NON CALCOLO IL COSTO PERCHÈ SE RESTITUISCE GLI STESSI CENTRI CHE RESTITUISCONO LE DPU IL COSTO È UGUALE A QUELLO 
+//CALCOLATO DALLE DPU
 //Calcola i centri, partendo dagli stessi sottoinsiemi di punti assegnati alle DPU.
 static void k_clustering_host(uint32_t n_point_dpu, uint32_t n_points_last_dpu, uint32_t n_centers, uint32_t dim, uint32_t first_offset) {
 
@@ -110,13 +132,14 @@ static void k_clustering_host(uint32_t n_point_dpu, uint32_t n_points_last_dpu, 
     }
     points_offset = (NR_DPUS-1)*n_point_dpu*dim;
     centers_set_offset = (NR_DPUS-1)*n_centers*dim;
+    //CALCOLO DEI CENTRI DALL'ULTIMO INSIEME DI PUNTI CHE POTREBBE AVERE PARAMETRI DIVERSI NEL CASO IN CUI IL NUMERO DI PUNTI NON SIA MULTIPLO DEL NUMERO DI DPU
     get_centers(P + points_offset, M + centers_set_offset, n_points_last_dpu, n_centers, dim, first_offset);
     
-    //Calcolo i centri finali
+    //Calcolo i centri finali (ULTIMA PASSATA)
     get_centers(M, H, n_centers*NR_DPUS, n_centers, dim, 0);
 }
 
-//Calcola il costo del clustering effettuato linearmente su tutti i punti.
+//Calcola il costo del clustering effettuato linearmente su tutti i punti. EFFETTUA L'ALGORITMO SENZA SPEZZETTAMENTO E CALCOLO IL COSTO
 static D get_linear_cost(uint32_t n_points, uint32_t n_centers, uint32_t dim, uint32_t first_offset) {
     
     T centers_set[n_centers*dim];
@@ -150,6 +173,7 @@ static D get_linear_cost(uint32_t n_points, uint32_t n_centers, uint32_t dim, ui
 
 int main(int argc, char **argv) {
 
+    //Carico i parametri nella struttura
     //Parametri per l'esecuzione del benchmark: #punti, #centri, #dimensione dello spazio e #ripetizioni efettuate.
     struct Params p = input_params(argc, argv);
     if (p.n_points == 0) return -1; //Il file non è stato aperto correttamente.
@@ -188,7 +212,7 @@ int main(int argc, char **argv) {
 
     //Parametri per le varie DPU.
     struct dpu_arguments_t  input_arguments[NR_DPUS];
-    for (int i=0; i < NR_DPUS-1; i++) {
+    for (int i = 0; i < NR_DPUS - 1; i++) {
         input_arguments[i].n_points_dpu_i = points_per_dpu;
         input_arguments[i].n_centers = p.n_centers;
         input_arguments[i].dim = p.dim;
@@ -243,7 +267,7 @@ int main(int argc, char **argv) {
         DPU_ASSERT(dpu_launch(dpu_set, DPU_SYNCHRONOUS));
         
         //Stop timer tempo esecuzione nelle DPU.
-        //Cronometro trasferimento DPU-CPU ed calcolo centri finali.
+        //Cronometro trasferimento DPU-CPU e calcolo centri finali.
         if (rep >= p.n_warmup) {
             stop(&timer, 1);
             start(&timer, 2, rep - p.n_warmup);
@@ -268,7 +292,7 @@ int main(int argc, char **argv) {
         //Calcolo i centri finali partendo dai centri trovati dalle DPU.
         get_centers(R, C, p.n_centers*NR_DPUS, p.n_centers, p.dim, 0);
 
-        //Stop timer trasferimento DPU-CPU ed calcolo centri finali.
+        //Stop timer trasferimento DPU-CPU e calcolo centri finali.
         //Cronometro esecuzione algoritmo su host.
         if (rep >= p.n_warmup) {
             stop(&timer, 2);
@@ -282,7 +306,8 @@ int main(int argc, char **argv) {
         if (rep >= p.n_warmup) {
             stop(&timer, 3);
         }
-
+        
+        //DA QUI IN POI INIZIO IL CALCOLO DEL COSTO DEL CLUSTERING CON SPEZZETTAMENTO SU DPU
         //Carico il programma per calcolare il costo del clustering.
         DPU_ASSERT(dpu_load(dpu_set, DPU_BINARY2, NULL));
         
@@ -297,7 +322,8 @@ int main(int argc, char **argv) {
         i = 0;
         uint32_t center_set_size = (p.n_centers*p.dim*sizeof(T) % 8) == 0 ? p.n_centers*p.dim*sizeof(T) : roundup(p.n_centers*p.dim*sizeof(T), 8);
         DPU_FOREACH(dpu_set, dpu, i) {
-                DPU_ASSERT(dpu_prepare_xfer(dpu, C));
+            //LA COSA INTERESSANTE È CHE OGNI DPU HA ANCORA IN MEMORIA LA SUA PARTIZIONI DI P QUINDI ADESSO BASTA CHE PASSO C E CIASCUNA DPU PUÒ QUINDI FARE IL COSTO
+                DPU_ASSERT(dpu_prepare_xfer(dpu, C)); //PRIMA PASSAVO PORZIONE DI P ORA PASSO C PERCHÈ HO GIÀ CALCOLATO I CENTRI MEMORIZZATI C
         }
         DPU_ASSERT(dpu_push_xfer(dpu_set, DPU_XFER_TO_DPU, DPU_MRAM_HEAP_POINTER_NAME, dpu_center_set_addr, center_set_size, DPU_XFER_DEFAULT));
         

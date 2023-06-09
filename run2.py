@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 
 rootdir = "/home/deid/tesi/PIM-Clustering" #Path della repo "Clustering" sul dispositivo
 
+#FAI UNO STUDIO PER VEDERE SE C'È VERAMENTE UN VATAGGIO PRESTAZIONALE A FARE STA ROBA CON LE DPU
 # w = warmpup   e = executions    n = # of points    k = # number of centers    d = dimension of points   r if first point random
 applications = {"KCC"   : ["NR_DPUS=X NR_TASKLETS=W BL=Z TYPE=F make -B all", "./bin/host_app -w 1 -e 3 -n #points -k #centers -d #dimensions -r"],
                 "DS"    : ["NR_DPUS=X NR_TASKLETS=W BL=Z TYPE=F make -B all", "./bin/host_app -w 1 -e 3 -p #ds-path -k #centers -r"]}

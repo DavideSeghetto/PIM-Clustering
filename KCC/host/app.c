@@ -40,7 +40,7 @@ static T* M; //Buffer "centri intermedi" host.
 static void init_dataset(T* points_buffer, uint32_t n, uint32_t d) {
     srand(time(NULL));
     for (unsigned int i = 0; i < n*d; i++) {
-        points_buffer[i] = my_rand(1000); //Restringo il range di numeri per evitare overflow.
+        points_buffer[i] = my_rand(1000); //Restringo il range di numeri per evitare overflow. POPTRÒ MODIFICARLO SE SISTEMO STORIA DELLA POTENZA
     }
 }
 
@@ -64,7 +64,7 @@ static void get_centers(T* point_buffer, T* centers_buffer, uint32_t n_points, u
                 uint32_t center_index = j*dim;
                 D dist = 0;
             
-                for (unsigned int k = 0; k < dim; k++) {
+                for (unsigned int k = 0; k < dim; k++) {    //!!!!!!!!!!!!!!!PROBLEMA DELLA POTENZA!!!!!!!!!!
                     dist += power(point_buffer[point_index+k], centers_buffer[center_index+k], dim); //TODO: non gestisce overflow.
                 }
 

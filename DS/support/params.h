@@ -61,8 +61,8 @@ struct Params input_params(int argc, char **argv) {
         FILE *ds = fopen(p.ds, "r");
 
         if (!ds) {
-        fprintf(stderr, "Unable to open file.\n");
-        return p;
+            fprintf(stderr, "Unable to open file.\n");
+            return p;
         }
 
         int nun_lines = 0;

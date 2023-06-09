@@ -1,27 +1,5 @@
 Allocated 16 DPU(s)
 NR_TASKLETS 16 BLOCK_LENGTH 1024
 Centers -k 4
-Dataset path: /home/deid/tesi/PIM-Clustering/DS/dataset/int-small.csv
-
-Rep 0: Outputs are equal	 DPU cost: 483149	 Linear cost: 472490
-Rep 1: Outputs are equal	 DPU cost: 483149	 Linear cost: 472490
-Rep 2: Outputs are equal	 DPU cost: 466970	 Linear cost: 472490
-Rep 3: Outputs are equal	 DPU cost: 472490	 Linear cost: 487089
-
-
-Tempi medi:
-CPU-DPU: 0.239333(ms)	DPU Kernel: 1655.254333(ms)	DPU-CPU e centri finali: 0.054333(ms)	CPU: 0.283667(ms)
-
-Centri finali:
-Centro: 0 [-57, -229]
-Centro: 1 [0, -40]
-Centro: 2 [-157, 0]
-Centro: 3 [7, 4]
-
---------------------------------------------------
-
-Allocated 16 DPU(s)
-NR_TASKLETS 16 BLOCK_LENGTH 512
-Centers -k 4
-Dataset path: /home/deid/tesi/PIM-Clustering/DS/dataset/int-small.csv
+Dataset path: /home/deid/tesi/PIM-Clustering/DS/dataset/int-large.csv
 
