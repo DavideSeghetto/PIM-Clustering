@@ -74,22 +74,11 @@ uint32_t get_block_size(uint32_t point_dim) {
 #if defined(FLOAT) || defined(DOUBLE)
     #define INIT_VAL 18446744073709551616.0
 
-    D f_pow(T base, uint32_t exp){
-        D temp;
-        if(exp == 0) 
-            return 1; 
-        temp = f_pow(base, exp / 2); 
-        if (exp & 1)
-            return base * temp * temp;
-        else
-            return temp * temp;
+    D distance(T a, T b) {
+        D base = (a >= b) ? a-b : b-a;
+        return base * base;
     }
-
-    //Calcola |a-b|^exp.
-    D power(T a, T b, uint32_t exp) {
-        D base = (a > b) ? a-b : b-a;
-        return f_pow(base, exp);
-    }
+    
 
     void print_points(T* points_set, uint32_t n_centers, uint32_t dim) {
     for (unsigned int i=0; i < n_centers; i++) {
@@ -114,19 +103,9 @@ uint32_t get_block_size(uint32_t point_dim) {
     #define _INIT_VAL_(c) c ## ULL
     #define INIT_VAL (_INIT_VAL_(18446744073709551615))
 
-    //Calcola |a-b|^exp usando l'esponenziazione per quadratura.
-    D power(T a, T b, uint32_t exp) {   //DEVO MODIFICARE QUESTA FUNZIONE, DOVRÒ QUINDI MODIFICARE ANCHE LA FUNZIONE CHE CALCOLA LA DISTANZA TRA DUE PUNTI
+    D distance(T a, T b) {
         D base = (a >= b) ? a-b : b-a;
-        D res = 1;
-        while (exp > 0) {
-            if (exp & 1) {
-                res *= base;
-            }
-            exp >>= 1;
-            base *= base;
-        }
-
-        return res;
+        return base * base;
     }
 
     void print_points(T* points_set, uint32_t n_centers, uint32_t dim) {

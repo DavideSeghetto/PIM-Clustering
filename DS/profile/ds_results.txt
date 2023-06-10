@@ -1,88 +1,112 @@
 Allocated 16 DPU(s)
-NR_TASKLETS 16 BLOCK_LENGTH 1024
-Centers -k 4
-Dataset path: /home/deid/tesi/PIM-Clustering/DS/dataset/int-large.csv
+NR_TASKLETS 8 BLOCK_LENGTH 1024
+Centers -k 3
+Dataset path: /home/deid/tesi/prova/DS/dataset/int-small.csv
 
-Rep 0: Outputs are equal	 DPU cost: 17209943060762781200	 Linear cost: 17913059607245327635
-Rep 1: Outputs are equal	 DPU cost: 16870721417962574945	 Linear cost: 18242901890576454561
-Rep 2: Outputs are equal	 DPU cost: 17899479129748509698	 Linear cost: 18109972858103859985
-Rep 3: Outputs are equal	 DPU cost: 17619522183423204338	 Linear cost: 17987347247129071571
+Rep 0: Outputs are equal	 DPU cost: 18446736969833986757	 Linear cost: 18446740285548581565
+Rep 1: Outputs are equal	 DPU cost: 18446736969833986757	 Linear cost: 18446740285548581565
+Rep 2: Outputs are equal	 DPU cost: 18446737888956934834	 Linear cost: 18446736213919821993
+Rep 3: Outputs are equal	 DPU cost: 18446737888956934834	 Linear cost: 18446736213919821993
 
 
 Tempi medi:
-CPU-DPU: 0.443667(ms)	DPU Kernel: 110317.944333(ms)	DPU-CPU e centri finali: 0.063333(ms)	CPU: 23.900333(ms)
+CPU-DPU: 0.236333(ms)	DPU Kernel: 133.543667(ms)	DPU-CPU e centri finali: 0.081000(ms)	CPU: 0.283000(ms)
 
 Centri finali:
-Centro: 0 [232, -306, 492, -219]
-Centro: 1 [-484, -270, -399, -225]
-Centro: 2 [422, -226, -415, 475]
-Centro: 3 [-482, 58, -401, -206]
+Centro: 0 [233, -475]
+Centro: 1 [-1, -90]
+Centro: 2 [22, 3]
+
+Il tempo trascorso per eseguire l'algoritmo con 16 DPUs, 8 TASKLET e BLOCK LENGTH 1024 è: 4.479300000001518e-05
 
 --------------------------------------------------
 
 Allocated 16 DPU(s)
 NR_TASKLETS 16 BLOCK_LENGTH 512
-Centers -k 4
-Dataset path: /home/deid/tesi/PIM-Clustering/DS/dataset/int-large.csv
+Centers -k 3
+Dataset path: /home/deid/tesi/prova/DS/dataset/int-small.csv
 
-Rep 0: Outputs are equal	 DPU cost: 17686341957411354066	 Linear cost: 17733734832277004130
-Rep 1: Outputs are equal	 DPU cost: 17716452780887637844	 Linear cost: 16943017973816311473
-Rep 2: Outputs are equal	 DPU cost: 16870768591508447651	 Linear cost: 17054714421648135362
-Rep 3: Outputs are equal	 DPU cost: 16663078616573266464	 Linear cost: 18254724181569487825
+Rep 0: Outputs are equal	 DPU cost: 18446737888956934834	 Linear cost: 18446736213919821993
+Rep 1: Outputs are equal	 DPU cost: 18446737064323257864	 Linear cost: 18446739469504823890
+Rep 2: Outputs are equal	 DPU cost: 18446737064323257864	 Linear cost: 18446739469504823890
+Rep 3: Outputs are equal	 DPU cost: 18446737064323257864	 Linear cost: 18446739469504823890
 
 
 Tempi medi:
-CPU-DPU: 0.499333(ms)	DPU Kernel: 109287.961333(ms)	DPU-CPU e centri finali: 0.067000(ms)	CPU: 23.612333(ms)
+CPU-DPU: 0.243333(ms)	DPU Kernel: 135.991667(ms)	DPU-CPU e centri finali: 0.025667(ms)	CPU: 0.200000(ms)
 
 Centri finali:
-Centro: 0 [-140, -22, -14, -248]
-Centro: 1 [-499, -396, 0, -470]
-Centro: 2 [-393, 0, 336, -33]
-Centro: 3 [-452, 0, -48, -438]
+Centro: 0 [-388, 418]
+Centro: 1 [2, 81]
+Centro: 2 [-21, -1]
+
+Il tempo trascorso per eseguire l'algoritmo con 16 DPUs, 16 TASKLET e BLOCK LENGTH 512 è: 8.010399999999751e-05
 
 --------------------------------------------------
 
 Allocated 64 DPU(s)
-NR_TASKLETS 64 BLOCK_LENGTH 1024
-Centers -k 4
-Dataset path: /home/deid/tesi/PIM-Clustering/DS/dataset/int-large.csv
+NR_TASKLETS 8 BLOCK_LENGTH 1024
+Centers -k 3
+Dataset path: /home/deid/tesi/prova/DS/dataset/int-small.csv
 
-Rep 0: Outputs are equal	 DPU cost: 16849709075903838420	 Linear cost: 18106702309621484832
-Rep 1: Outputs are equal	 DPU cost: 17555192776324915811	 Linear cost: 17919935472384434691
-Rep 2: Outputs are equal	 DPU cost: 16752617881957171378	 Linear cost: 16663078616573266464
-Rep 3: Outputs are equal	 DPU cost: 18311356417653162514	 Linear cost: 16708232537350952546
+Rep 0: Outputs are equal	 DPU cost: 18446737742928030197	 Linear cost: 18446738163834829320
+Rep 1: Outputs are equal	 DPU cost: 18446737742928030197	 Linear cost: 18446738163834829320
+Rep 2: Outputs are equal	 DPU cost: 18446737742928030197	 Linear cost: 18446738163834829320
+Rep 3: Outputs are equal	 DPU cost: 18446737742928030197	 Linear cost: 18446738163834829320
 
 
 Tempi medi:
-CPU-DPU: 0.722333(ms)	DPU Kernel: 104937.546000(ms)	DPU-CPU e centri finali: 0.206000(ms)	CPU: 25.907667(ms)
+CPU-DPU: 0.403333(ms)	DPU Kernel: 115.731000(ms)	DPU-CPU e centri finali: 0.133000(ms)	CPU: 0.222333(ms)
 
 Centri finali:
-Centro: 0 [-494, -404, 204, -245]
-Centro: 1 [464, 12, -250, 63]
-Centro: 2 [474, -12, -307, 91]
-Centro: 3 [462, 145, -145, -95]
+Centro: 0 [-336, -390]
+Centro: 1 [2, -230]
+Centro: 2 [-4, 8]
+
+Il tempo trascorso per eseguire l'algoritmo con 64 DPUs, 8 TASKLET e BLOCK LENGTH 1024 è: 4.5538000000011625e-05
 
 --------------------------------------------------
 
 Allocated 64 DPU(s)
-NR_TASKLETS 64 BLOCK_LENGTH 512
-Centers -k 4
-Dataset path: /home/deid/tesi/PIM-Clustering/DS/dataset/int-large.csv
+NR_TASKLETS 16 BLOCK_LENGTH 512
+Centers -k 3
+Dataset path: /home/deid/tesi/prova/DS/dataset/int-small.csv
 
-Rep 0: Outputs are equal	 DPU cost: 16881228544765968883	 Linear cost: 18134217403751351667
-Rep 1: Outputs are equal	 DPU cost: 16437899172048229763	 Linear cost: 18381964996084757698
-Rep 2: Outputs are equal	 DPU cost: 17032002294075916066	 Linear cost: 18170507036751957857
-Rep 3: Outputs are equal	 DPU cost: 17128220502844572690	 Linear cost: 17333583805213254065
+Rep 0: Outputs are equal	 DPU cost: 18446737837417305234	 Linear cost: 18446736669186312276
+Rep 1: Outputs are equal	 DPU cost: 18446737837417305234	 Linear cost: 18446736669186312276
+Rep 2: Outputs are equal	 DPU cost: 18446737837417305234	 Linear cost: 18446736669186312276
+Rep 3: Outputs are equal	 DPU cost: 18446739615533699661	 Linear cost: 18446737940496507844
 
 
 Tempi medi:
-CPU-DPU: 0.731000(ms)	DPU Kernel: 104846.936000(ms)	DPU-CPU e centri finali: 0.218667(ms)	CPU: 24.877000(ms)
+CPU-DPU: 0.403667(ms)	DPU Kernel: 130.681333(ms)	DPU-CPU e centri finali: 0.146333(ms)	CPU: 0.216333(ms)
 
 Centri finali:
-Centro: 0 [-150, 422, -100, 483]
-Centro: 1 [456, 37, -343, -465]
-Centro: 2 [417, -17, -450, -450]
-Centro: 3 [-350, 280, 63, 323]
+Centro: 0 [-436, 73]
+Centro: 1 [-21, -1]
+Centro: 2 [0, 188]
 
+Il tempo trascorso per eseguire l'algoritmo con 64 DPUs, 16 TASKLET e BLOCK LENGTH 512 è: 5.9797999999999796e-05
+
+--------------------------------------------------
+
+CPU-DPU
+
+0.236333	0.243333	0.403333	0.403667	
+--------------------------------------------------
+
+DPU-Kernel
+
+133.543667	135.991667	115.731000	130.681333	
+--------------------------------------------------
+
+DPU-CPU e centri finali
+
+0.081000	0.025667	0.133000	0.146333	
+--------------------------------------------------
+
+CPU
+
+0.283000	0.200000	0.222333	0.216333	
 --------------------------------------------------
 

@@ -109,8 +109,8 @@ static void get_centers(T* point_buffer, T* centers_buffer, uint32_t n_points, u
                 D dist = 0;
             
                 for (unsigned int k = 0; k < dim; k++) {
-                    //CALCOLO DISTANZA TRA DUE PUNTI
-                    dist += power(point_buffer[point_index+k], centers_buffer[center_index+k], dim); //TODO: non gestisce overflow. TOGLI DIM E METTI DISTANZA EUCLIDEA(?) MINUTO 1:09
+                    //CALCOLO DISTANZA TRA DUE PUNTI. IL FATTO DI AVER MODIFICATO IL CALCOLO DELLA DISTANZA MI PERTMETTE DI AVERE DATASET CON DIMENSIONI MOLTO PIÙ GRANDI
+                    dist += distance(point_buffer[point_index+k], centers_buffer[center_index+k]); //TODO: non gestisce overflow.
                 }
 
                 min_center_dist = (dist < min_center_dist) ? dist : min_center_dist;
@@ -169,7 +169,7 @@ static D get_linear_cost(uint32_t n_points, uint32_t n_centers, uint32_t dim, ui
             D dist = 0;
         
             for (unsigned int k = 0; k < dim; k++) {
-                dist += power(P[point_index+k], centers_set[center_index+k], dim); //TODO: non gestisce overflow.
+                dist += distance(P[point_index+k], centers_set[center_index+k]); //TODO: non gestisce overflow.
             }
 
             min_center_dist = (dist < min_center_dist) ? dist : min_center_dist;
@@ -385,7 +385,6 @@ int main(int argc, char **argv) {
 
     printf("\n\nCentri finali:\n");
     print_points(C, p.n_centers, p.dim);
-    printf("\n--------------------------------------------------\n\n");
 
     free(H);
     free(M);
@@ -393,6 +392,5 @@ int main(int argc, char **argv) {
     free(R);
     free(P);
     DPU_ASSERT(dpu_free(dpu_set));
-
     return 0;
 }

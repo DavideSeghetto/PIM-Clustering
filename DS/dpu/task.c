@@ -31,7 +31,7 @@ static D get_furthest_point(T* buffer, uint32_t n_points, uint32_t dim, T* candi
             D dist = 0;
         
             for (unsigned int k = 0; k < dim; k++) {
-                dist += power(buffer[point_index+k], centers_set[center_index+k], dim); //TODO: non gestisce overflow.
+                dist += distance(buffer[point_index+k], centers_set[center_index+k]); //TODO: non gestisce overflow.
             }
 
             min_center_dist = (dist < min_center_dist) ? dist : min_center_dist;
