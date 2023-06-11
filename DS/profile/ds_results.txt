@@ -1,112 +1,859 @@
-Allocated 16 DPU(s)
-NR_TASKLETS 8 BLOCK_LENGTH 1024
-Centers -k 3
-Dataset path: /home/deid/tesi/prova/DS/dataset/int-small.csv
-
-Rep 0: Outputs are equal	 DPU cost: 18446736969833986757	 Linear cost: 18446740285548581565
-Rep 1: Outputs are equal	 DPU cost: 18446736969833986757	 Linear cost: 18446740285548581565
-Rep 2: Outputs are equal	 DPU cost: 18446737888956934834	 Linear cost: 18446736213919821993
-Rep 3: Outputs are equal	 DPU cost: 18446737888956934834	 Linear cost: 18446736213919821993
-
-
-Tempi medi:
-CPU-DPU: 0.236333(ms)	DPU Kernel: 133.543667(ms)	DPU-CPU e centri finali: 0.081000(ms)	CPU: 0.283000(ms)
-
-Centri finali:
-Centro: 0 [233, -475]
-Centro: 1 [-1, -90]
-Centro: 2 [22, 3]
-
-Il tempo trascorso per eseguire l'algoritmo con 16 DPUs, 8 TASKLET e BLOCK LENGTH 1024 è: 4.479300000001518e-05
-
---------------------------------------------------
-
-Allocated 16 DPU(s)
-NR_TASKLETS 16 BLOCK_LENGTH 512
-Centers -k 3
-Dataset path: /home/deid/tesi/prova/DS/dataset/int-small.csv
-
-Rep 0: Outputs are equal	 DPU cost: 18446737888956934834	 Linear cost: 18446736213919821993
-Rep 1: Outputs are equal	 DPU cost: 18446737064323257864	 Linear cost: 18446739469504823890
-Rep 2: Outputs are equal	 DPU cost: 18446737064323257864	 Linear cost: 18446739469504823890
-Rep 3: Outputs are equal	 DPU cost: 18446737064323257864	 Linear cost: 18446739469504823890
-
-
-Tempi medi:
-CPU-DPU: 0.243333(ms)	DPU Kernel: 135.991667(ms)	DPU-CPU e centri finali: 0.025667(ms)	CPU: 0.200000(ms)
-
-Centri finali:
-Centro: 0 [-388, 418]
-Centro: 1 [2, 81]
-Centro: 2 [-21, -1]
-
-Il tempo trascorso per eseguire l'algoritmo con 16 DPUs, 16 TASKLET e BLOCK LENGTH 512 è: 8.010399999999751e-05
-
---------------------------------------------------
-
 Allocated 64 DPU(s)
-NR_TASKLETS 8 BLOCK_LENGTH 1024
-Centers -k 3
-Dataset path: /home/deid/tesi/prova/DS/dataset/int-small.csv
+NR_TASKLETS 16 BLOCK_LENGTH 1024
+Centers -k 2
+Dataset path: /home/deid/tesi/PIM-Clustering/DS/dataset/int-very-small.csv
 
-Rep 0: Outputs are equal	 DPU cost: 18446737742928030197	 Linear cost: 18446738163834829320
-Rep 1: Outputs are equal	 DPU cost: 18446737742928030197	 Linear cost: 18446738163834829320
-Rep 2: Outputs are equal	 DPU cost: 18446737742928030197	 Linear cost: 18446738163834829320
-Rep 3: Outputs are equal	 DPU cost: 18446737742928030197	 Linear cost: 18446738163834829320
+Il punto è: -277	Il punto è: 326
+	
+Il punto è: 200	Il punto è: -294
+	
+Il punto è: -51	Il punto è: -168
+	
+Il punto è: 353	Il punto è: 497
+	
+Il punto è: -175	Il punto è: -108
+	
+Il punto è: -14	Il punto è: 157
+	
+Il punto è: -336	Il punto è: -390
+	
+Il punto è: -241	Il punto è: 392
+	
+Il punto è: -144	Il punto è: -497
+	
+Il punto è: -473	Il punto è: -463
+	
+Punto 1: -277, 326
+
+Punto 3: 200, -294
+
+Punto 5: -51, -168
+
+Punto 7: 353, 497
+
+Punto 9: -175, -108
+
+Punto 11: -14, 157
+
+Punto 13: -336, -390
+
+Punto 15: -241, 392
+
+Punto 17: -144, -497
+
+Punto 19: -473, -463
+
+Le coordinate che uso per la distanza sono: -277 e -277
+La distanza trovata per queste due coordinate è: 0
+Le coordinate che uso per la distanza sono: 326 e 326
+La distanza trovata per queste due coordinate è: 0
+La distanza trovata è: 0
+
+Le coordinate che uso per la distanza sono: -277 e 324
+La distanza trovata per queste due coordinate è: 361201
+Le coordinate che uso per la distanza sono: 326 e -438
+La distanza trovata per queste due coordinate è: 583696
+La distanza trovata è: 944897
+
+Le coordinate che uso per la distanza sono: 200 e -277
+La distanza trovata per queste due coordinate è: 227529
+Le coordinate che uso per la distanza sono: -294 e 326
+La distanza trovata per queste due coordinate è: 384400
+La distanza trovata è: 611929
+
+Le coordinate che uso per la distanza sono: 200 e 324
+La distanza trovata per queste due coordinate è: 15376
+Le coordinate che uso per la distanza sono: -294 e -438
+La distanza trovata per queste due coordinate è: 20736
+La distanza trovata è: 36112
+
+Le coordinate che uso per la distanza sono: -51 e -277
+La distanza trovata per queste due coordinate è: 51076
+Le coordinate che uso per la distanza sono: -168 e 326
+La distanza trovata per queste due coordinate è: 244036
+La distanza trovata è: 295112
+
+Le coordinate che uso per la distanza sono: -51 e 324
+La distanza trovata per queste due coordinate è: 140625
+Le coordinate che uso per la distanza sono: -168 e -438
+La distanza trovata per queste due coordinate è: 72900
+La distanza trovata è: 213525
+
+Le coordinate che uso per la distanza sono: 353 e -277
+La distanza trovata per queste due coordinate è: 396900
+Le coordinate che uso per la distanza sono: 497 e 326
+La distanza trovata per queste due coordinate è: 29241
+La distanza trovata è: 426141
+
+Le coordinate che uso per la distanza sono: 353 e 324
+La distanza trovata per queste due coordinate è: 841
+Le coordinate che uso per la distanza sono: 497 e -438
+La distanza trovata per queste due coordinate è: 874225
+La distanza trovata è: 875066
+
+Le coordinate che uso per la distanza sono: -175 e -277
+La distanza trovata per queste due coordinate è: 10404
+Le coordinate che uso per la distanza sono: -108 e 326
+La distanza trovata per queste due coordinate è: 188356
+La distanza trovata è: 198760
+
+Le coordinate che uso per la distanza sono: -175 e 324
+La distanza trovata per queste due coordinate è: 249001
+Le coordinate che uso per la distanza sono: -108 e -438
+La distanza trovata per queste due coordinate è: 108900
+La distanza trovata è: 357901
+
+Le coordinate che uso per la distanza sono: -14 e -277
+La distanza trovata per queste due coordinate è: 69169
+Le coordinate che uso per la distanza sono: 157 e 326
+La distanza trovata per queste due coordinate è: 28561
+La distanza trovata è: 97730
+
+Le coordinate che uso per la distanza sono: -14 e 324
+La distanza trovata per queste due coordinate è: 114244
+Le coordinate che uso per la distanza sono: 157 e -438
+La distanza trovata per queste due coordinate è: 354025
+La distanza trovata è: 468269
+
+Le coordinate che uso per la distanza sono: -336 e -277
+La distanza trovata per queste due coordinate è: 3481
+Le coordinate che uso per la distanza sono: -390 e 326
+La distanza trovata per queste due coordinate è: 512656
+La distanza trovata è: 516137
+
+Le coordinate che uso per la distanza sono: -336 e 324
+La distanza trovata per queste due coordinate è: 435600
+Le coordinate che uso per la distanza sono: -390 e -438
+La distanza trovata per queste due coordinate è: 2304
+La distanza trovata è: 437904
+
+Le coordinate che uso per la distanza sono: -241 e -277
+La distanza trovata per queste due coordinate è: 1296
+Le coordinate che uso per la distanza sono: 392 e 326
+La distanza trovata per queste due coordinate è: 4356
+La distanza trovata è: 5652
+
+Le coordinate che uso per la distanza sono: -241 e 324
+La distanza trovata per queste due coordinate è: 319225
+Le coordinate che uso per la distanza sono: 392 e -438
+La distanza trovata per queste due coordinate è: 688900
+La distanza trovata è: 1008125
+
+Le coordinate che uso per la distanza sono: -144 e -277
+La distanza trovata per queste due coordinate è: 17689
+Le coordinate che uso per la distanza sono: -497 e 326
+La distanza trovata per queste due coordinate è: 677329
+La distanza trovata è: 695018
+
+Le coordinate che uso per la distanza sono: -144 e 324
+La distanza trovata per queste due coordinate è: 219024
+Le coordinate che uso per la distanza sono: -497 e -438
+La distanza trovata per queste due coordinate è: 3481
+La distanza trovata è: 222505
+
+Le coordinate che uso per la distanza sono: -473 e -277
+La distanza trovata per queste due coordinate è: 38416
+Le coordinate che uso per la distanza sono: -463 e 326
+La distanza trovata per queste due coordinate è: 622521
+La distanza trovata è: 660937
+
+Le coordinate che uso per la distanza sono: -473 e 324
+La distanza trovata per queste due coordinate è: 635209
+Le coordinate che uso per la distanza sono: -463 e -438
+La distanza trovata per queste due coordinate è: 625
+La distanza trovata è: 635834
+
+Le coordinate che uso per la distanza sono: 68 e -277
+La distanza trovata per queste due coordinate è: 119025
+Le coordinate che uso per la distanza sono: -32 e 326
+La distanza trovata per queste due coordinate è: 128164
+La distanza trovata è: 247189
+
+Le coordinate che uso per la distanza sono: 68 e 324
+La distanza trovata per queste due coordinate è: 65536
+Le coordinate che uso per la distanza sono: -32 e -438
+La distanza trovata per queste due coordinate è: 164836
+La distanza trovata è: 230372
+
+Le coordinate che uso per la distanza sono: 495 e -277
+La distanza trovata per queste due coordinate è: 595984
+Le coordinate che uso per la distanza sono: 268 e 326
+La distanza trovata per queste due coordinate è: 3364
+La distanza trovata è: 599348
+
+Le coordinate che uso per la distanza sono: 495 e 324
+La distanza trovata per queste due coordinate è: 29241
+Le coordinate che uso per la distanza sono: 268 e -438
+La distanza trovata per queste due coordinate è: 498436
+La distanza trovata è: 527677
+
+Le coordinate che uso per la distanza sono: -190 e -277
+La distanza trovata per queste due coordinate è: 7569
+Le coordinate che uso per la distanza sono: 383 e 326
+La distanza trovata per queste due coordinate è: 3249
+La distanza trovata è: 10818
+
+Le coordinate che uso per la distanza sono: -190 e 324
+La distanza trovata per queste due coordinate è: 264196
+Le coordinate che uso per la distanza sono: 383 e -438
+La distanza trovata per queste due coordinate è: 674041
+La distanza trovata è: 938237
+
+Le coordinate che uso per la distanza sono: 196 e -277
+La distanza trovata per queste due coordinate è: 223729
+Le coordinate che uso per la distanza sono: 195 e 326
+La distanza trovata per queste due coordinate è: 17161
+La distanza trovata è: 240890
+
+Le coordinate che uso per la distanza sono: 196 e 324
+La distanza trovata per queste due coordinate è: 16384
+Le coordinate che uso per la distanza sono: 195 e -438
+La distanza trovata per queste due coordinate è: 400689
+La distanza trovata è: 417073
+
+Le coordinate che uso per la distanza sono: -222 e -277
+La distanza trovata per queste due coordinate è: 3025
+Le coordinate che uso per la distanza sono: -461 e 326
+La distanza trovata per queste due coordinate è: 619369
+La distanza trovata è: 622394
+
+Le coordinate che uso per la distanza sono: -222 e 324
+La distanza trovata per queste due coordinate è: 298116
+Le coordinate che uso per la distanza sono: -461 e -438
+La distanza trovata per queste due coordinate è: 529
+La distanza trovata è: 298645
+
+Le coordinate che uso per la distanza sono: -27 e -277
+La distanza trovata per queste due coordinate è: 62500
+Le coordinate che uso per la distanza sono: 453 e 326
+La distanza trovata per queste due coordinate è: 16129
+La distanza trovata è: 78629
+
+Le coordinate che uso per la distanza sono: -27 e 324
+La distanza trovata per queste due coordinate è: 123201
+Le coordinate che uso per la distanza sono: 453 e -438
+La distanza trovata per queste due coordinate è: 793881
+La distanza trovata è: 917082
+
+Le coordinate che uso per la distanza sono: -249 e -277
+La distanza trovata per queste due coordinate è: 784
+Le coordinate che uso per la distanza sono: 138 e 326
+La distanza trovata per queste due coordinate è: 35344
+La distanza trovata è: 36128
+
+Le coordinate che uso per la distanza sono: -249 e 324
+La distanza trovata per queste due coordinate è: 328329
+Le coordinate che uso per la distanza sono: 138 e -438
+La distanza trovata per queste due coordinate è: 331776
+La distanza trovata è: 660105
+
+Le coordinate che uso per la distanza sono: -188 e -277
+La distanza trovata per queste due coordinate è: 7921
+Le coordinate che uso per la distanza sono: -290 e 326
+La distanza trovata per queste due coordinate è: 379456
+La distanza trovata è: 387377
+
+Le coordinate che uso per la distanza sono: -188 e 324
+La distanza trovata per queste due coordinate è: 262144
+Le coordinate che uso per la distanza sono: -290 e -438
+La distanza trovata per queste due coordinate è: 21904
+La distanza trovata è: 284048
+
+Le coordinate che uso per la distanza sono: -426 e -277
+La distanza trovata per queste due coordinate è: 22201
+Le coordinate che uso per la distanza sono: 129 e 326
+La distanza trovata per queste due coordinate è: 38809
+La distanza trovata è: 61010
+
+Le coordinate che uso per la distanza sono: -426 e 324
+La distanza trovata per queste due coordinate è: 562500
+Le coordinate che uso per la distanza sono: 129 e -438
+La distanza trovata per queste due coordinate è: 321489
+La distanza trovata è: 883989
+
+Le coordinate che uso per la distanza sono: 178 e -277
+La distanza trovata per queste due coordinate è: 207025
+Le coordinate che uso per la distanza sono: 419 e 326
+La distanza trovata per queste due coordinate è: 8649
+La distanza trovata è: 215674
+
+Le coordinate che uso per la distanza sono: 178 e 324
+La distanza trovata per queste due coordinate è: 21316
+Le coordinate che uso per la distanza sono: 419 e -438
+La distanza trovata per queste due coordinate è: 734449
+La distanza trovata è: 755765
+
+Le coordinate che uso per la distanza sono: 411 e -277
+La distanza trovata per queste due coordinate è: 473344
+Le coordinate che uso per la distanza sono: -145 e 326
+La distanza trovata per queste due coordinate è: 221841
+La distanza trovata è: 695185
+
+Le coordinate che uso per la distanza sono: 411 e 324
+La distanza trovata per queste due coordinate è: 7569
+Le coordinate che uso per la distanza sono: -145 e -438
+La distanza trovata per queste due coordinate è: 85849
+La distanza trovata è: 93418
+
+Le coordinate che uso per la distanza sono: 313 e -277
+La distanza trovata per queste due coordinate è: 348100
+Le coordinate che uso per la distanza sono: -164 e 326
+La distanza trovata per queste due coordinate è: 240100
+La distanza trovata è: 588200
+
+Le coordinate che uso per la distanza sono: 313 e 324
+La distanza trovata per queste due coordinate è: 121
+Le coordinate che uso per la distanza sono: -164 e -438
+La distanza trovata per queste due coordinate è: 75076
+La distanza trovata è: 75197
+
+Le coordinate che uso per la distanza sono: 255 e -277
+La distanza trovata per queste due coordinate è: 283024
+Le coordinate che uso per la distanza sono: 125 e 326
+La distanza trovata per queste due coordinate è: 40401
+La distanza trovata è: 323425
+
+Le coordinate che uso per la distanza sono: 255 e 324
+La distanza trovata per queste due coordinate è: 4761
+Le coordinate che uso per la distanza sono: 125 e -438
+La distanza trovata per queste due coordinate è: 316969
+La distanza trovata è: 321730
+
+Le coordinate che uso per la distanza sono: -13 e -277
+La distanza trovata per queste due coordinate è: 69696
+Le coordinate che uso per la distanza sono: -252 e 326
+La distanza trovata per queste due coordinate è: 334084
+La distanza trovata è: 403780
+
+Le coordinate che uso per la distanza sono: -13 e 324
+La distanza trovata per queste due coordinate è: 113569
+Le coordinate che uso per la distanza sono: -252 e -438
+La distanza trovata per queste due coordinate è: 34596
+La distanza trovata è: 148165
+
+Le coordinate che uso per la distanza sono: 324 e -277
+La distanza trovata per queste due coordinate è: 361201
+Le coordinate che uso per la distanza sono: -438 e 326
+La distanza trovata per queste due coordinate è: 583696
+La distanza trovata è: 944897
+
+Le coordinate che uso per la distanza sono: 324 e 324
+La distanza trovata per queste due coordinate è: 0
+Le coordinate che uso per la distanza sono: -438 e -438
+La distanza trovata per queste due coordinate è: 0
+La distanza trovata è: 0
+
+Le coordinate che uso per la distanza sono: -292 e -277
+La distanza trovata per queste due coordinate è: 225
+Le coordinate che uso per la distanza sono: -497 e 326
+La distanza trovata per queste due coordinate è: 677329
+La distanza trovata è: 677554
+
+Le coordinate che uso per la distanza sono: -292 e 324
+La distanza trovata per queste due coordinate è: 379456
+Le coordinate che uso per la distanza sono: -497 e -438
+La distanza trovata per queste due coordinate è: 3481
+La distanza trovata è: 382937
+
+Le coordinate che uso per la distanza sono: -169 e -277
+La distanza trovata per queste due coordinate è: 11664
+Le coordinate che uso per la distanza sono: 220 e 326
+La distanza trovata per queste due coordinate è: 11236
+La distanza trovata è: 22900
+
+Le coordinate che uso per la distanza sono: -169 e 324
+La distanza trovata per queste due coordinate è: 243049
+Le coordinate che uso per la distanza sono: 220 e -438
+La distanza trovata per queste due coordinate è: 432964
+La distanza trovata è: 676013
+
+Le coordinate che uso per la distanza sono: 91 e -277
+La distanza trovata per queste due coordinate è: 135424
+Le coordinate che uso per la distanza sono: -311 e 326
+La distanza trovata per queste due coordinate è: 405769
+La distanza trovata è: 541193
+
+Le coordinate che uso per la distanza sono: 91 e 324
+La distanza trovata per queste due coordinate è: 54289
+Le coordinate che uso per la distanza sono: -311 e -438
+La distanza trovata per queste due coordinate è: 16129
+La distanza trovata è: 70418
+
+Le coordinate che uso per la distanza sono: 96 e -277
+La distanza trovata per queste due coordinate è: 139129
+Le coordinate che uso per la distanza sono: -282 e 326
+La distanza trovata per queste due coordinate è: 369664
+La distanza trovata è: 508793
+
+Le coordinate che uso per la distanza sono: 96 e 324
+La distanza trovata per queste due coordinate è: 51984
+Le coordinate che uso per la distanza sono: -282 e -438
+La distanza trovata per queste due coordinate è: 24336
+La distanza trovata è: 76320
+
+Le coordinate che uso per la distanza sono: 383 e -277
+La distanza trovata per queste due coordinate è: 435600
+Le coordinate che uso per la distanza sono: -227 e 326
+La distanza trovata per queste due coordinate è: 305809
+La distanza trovata è: 741409
+
+Le coordinate che uso per la distanza sono: 383 e 324
+La distanza trovata per queste due coordinate è: 3481
+Le coordinate che uso per la distanza sono: -227 e -438
+La distanza trovata per queste due coordinate è: 44521
+La distanza trovata è: 48002
+
+Le coordinate che uso per la distanza sono: 317 e -277
+La distanza trovata per queste due coordinate è: 352836
+Le coordinate che uso per la distanza sono: -282 e 326
+La distanza trovata per queste due coordinate è: 369664
+La distanza trovata è: 722500
+
+Le coordinate che uso per la distanza sono: 317 e 324
+La distanza trovata per queste due coordinate è: 49
+Le coordinate che uso per la distanza sono: -282 e -438
+La distanza trovata per queste due coordinate è: 24336
+La distanza trovata è: 24385
+
+Le coordinate che uso per la distanza sono: -260 e -277
+La distanza trovata per queste due coordinate è: 289
+Le coordinate che uso per la distanza sono: -286 e 326
+La distanza trovata per queste due coordinate è: 374544
+La distanza trovata è: 374833
+
+Le coordinate che uso per la distanza sono: -260 e 324
+La distanza trovata per queste due coordinate è: 341056
+Le coordinate che uso per la distanza sono: -286 e -438
+La distanza trovata per queste due coordinate è: 23104
+La distanza trovata è: 364160
+
+Le coordinate che uso per la distanza sono: 383 e -277
+La distanza trovata per queste due coordinate è: 435600
+Le coordinate che uso per la distanza sono: 428 e 326
+La distanza trovata per queste due coordinate è: 10404
+La distanza trovata è: 446004
+
+Le coordinate che uso per la distanza sono: 383 e 324
+La distanza trovata per queste due coordinate è: 3481
+Le coordinate che uso per la distanza sono: 428 e -438
+La distanza trovata per queste due coordinate è: 749956
+La distanza trovata è: 753437
+
+Le coordinate che uso per la distanza sono: 141 e -277
+La distanza trovata per queste due coordinate è: 174724
+Le coordinate che uso per la distanza sono: 396 e 326
+La distanza trovata per queste due coordinate è: 4900
+La distanza trovata è: 179624
+
+Le coordinate che uso per la distanza sono: 141 e 324
+La distanza trovata per queste due coordinate è: 33489
+Le coordinate che uso per la distanza sono: 396 e -438
+La distanza trovata per queste due coordinate è: 695556
+La distanza trovata è: 729045
+
+Le coordinate che uso per la distanza sono: 247 e -277
+La distanza trovata per queste due coordinate è: 274576
+Le coordinate che uso per la distanza sono: 497 e 326
+La distanza trovata per queste due coordinate è: 29241
+La distanza trovata è: 303817
+
+Le coordinate che uso per la distanza sono: 247 e 324
+La distanza trovata per queste due coordinate è: 5929
+Le coordinate che uso per la distanza sono: 497 e -438
+La distanza trovata per queste due coordinate è: 874225
+La distanza trovata è: 880154
+
+Le coordinate che uso per la distanza sono: -311 e -277
+La distanza trovata per queste due coordinate è: 1156
+Le coordinate che uso per la distanza sono: 304 e 326
+La distanza trovata per queste due coordinate è: 484
+La distanza trovata è: 1640
+
+Le coordinate che uso per la distanza sono: -311 e 324
+La distanza trovata per queste due coordinate è: 403225
+Le coordinate che uso per la distanza sono: 304 e -438
+La distanza trovata per queste due coordinate è: 550564
+La distanza trovata è: 953789
+
+Le coordinate che uso per la distanza sono: -382 e -277
+La distanza trovata per queste due coordinate è: 11025
+Le coordinate che uso per la distanza sono: -454 e 326
+La distanza trovata per queste due coordinate è: 608400
+La distanza trovata è: 619425
+
+Le coordinate che uso per la distanza sono: -382 e 324
+La distanza trovata per queste due coordinate è: 498436
+Le coordinate che uso per la distanza sono: -454 e -438
+La distanza trovata per queste due coordinate è: 256
+La distanza trovata è: 498692
+
+Le coordinate che uso per la distanza sono: -11 e -277
+La distanza trovata per queste due coordinate è: 70756
+Le coordinate che uso per la distanza sono: 57 e 326
+La distanza trovata per queste due coordinate è: 72361
+La distanza trovata è: 143117
+
+Le coordinate che uso per la distanza sono: -11 e 324
+La distanza trovata per queste due coordinate è: 112225
+Le coordinate che uso per la distanza sono: 57 e -438
+La distanza trovata per queste due coordinate è: 245025
+La distanza trovata è: 357250
+
+Le coordinate che uso per la distanza sono: 249 e -277
+La distanza trovata per queste due coordinate è: 276676
+Le coordinate che uso per la distanza sono: 64 e 326
+La distanza trovata per queste due coordinate è: 68644
+La distanza trovata è: 345320
+
+Le coordinate che uso per la distanza sono: 249 e 324
+La distanza trovata per queste due coordinate è: 5625
+Le coordinate che uso per la distanza sono: 64 e -438
+La distanza trovata per queste due coordinate è: 252004
+La distanza trovata è: 257629
+
+Le coordinate che uso per la distanza sono: -378 e -277
+La distanza trovata per queste due coordinate è: 10201
+Le coordinate che uso per la distanza sono: 457 e 326
+La distanza trovata per queste due coordinate è: 17161
+La distanza trovata è: 27362
+
+Le coordinate che uso per la distanza sono: -378 e 324
+La distanza trovata per queste due coordinate è: 492804
+Le coordinate che uso per la distanza sono: 457 e -438
+La distanza trovata per queste due coordinate è: 801025
+La distanza trovata è: 1293829
+
+Le coordinate che uso per la distanza sono: 242 e -277
+La distanza trovata per queste due coordinate è: 269361
+Le coordinate che uso per la distanza sono: -309 e 326
+La distanza trovata per queste due coordinate è: 403225
+La distanza trovata è: 672586
+
+Le coordinate che uso per la distanza sono: 242 e 324
+La distanza trovata per queste due coordinate è: 6724
+Le coordinate che uso per la distanza sono: -309 e -438
+La distanza trovata per queste due coordinate è: 16641
+La distanza trovata è: 23365
+
+Le coordinate che uso per la distanza sono: -46 e -277
+La distanza trovata per queste due coordinate è: 53361
+Le coordinate che uso per la distanza sono: 183 e 326
+La distanza trovata per queste due coordinate è: 20449
+La distanza trovata è: 73810
+
+Le coordinate che uso per la distanza sono: -46 e 324
+La distanza trovata per queste due coordinate è: 136900
+Le coordinate che uso per la distanza sono: 183 e -438
+La distanza trovata per queste due coordinate è: 385641
+La distanza trovata è: 522541
+
+Le coordinate che uso per la distanza sono: -86 e -277
+La distanza trovata per queste due coordinate è: 36481
+Le coordinate che uso per la distanza sono: 58 e 326
+La distanza trovata per queste due coordinate è: 71824
+La distanza trovata è: 108305
+
+Le coordinate che uso per la distanza sono: -86 e 324
+La distanza trovata per queste due coordinate è: 168100
+Le coordinate che uso per la distanza sono: 58 e -438
+La distanza trovata per queste due coordinate è: 246016
+La distanza trovata è: 414116
+
+Le coordinate che uso per la distanza sono: 288 e -277
+La distanza trovata per queste due coordinate è: 319225
+Le coordinate che uso per la distanza sono: 318 e 326
+La distanza trovata per queste due coordinate è: 64
+La distanza trovata è: 319289
+
+Le coordinate che uso per la distanza sono: 288 e 324
+La distanza trovata per queste due coordinate è: 1296
+Le coordinate che uso per la distanza sono: 318 e -438
+La distanza trovata per queste due coordinate è: 571536
+La distanza trovata è: 572832
+
+Le coordinate che uso per la distanza sono: -380 e -277
+La distanza trovata per queste due coordinate è: 10609
+Le coordinate che uso per la distanza sono: 466 e 326
+La distanza trovata per queste due coordinate è: 19600
+La distanza trovata è: 30209
+
+Le coordinate che uso per la distanza sono: -380 e 324
+La distanza trovata per queste due coordinate è: 495616
+Le coordinate che uso per la distanza sono: 466 e -438
+La distanza trovata per queste due coordinate è: 817216
+La distanza trovata è: 1312832
+
+Le coordinate che uso per la distanza sono: 309 e -277
+La distanza trovata per queste due coordinate è: 343396
+Le coordinate che uso per la distanza sono: 357 e 326
+La distanza trovata per queste due coordinate è: 961
+La distanza trovata è: 344357
+
+Le coordinate che uso per la distanza sono: 309 e 324
+La distanza trovata per queste due coordinate è: 225
+Le coordinate che uso per la distanza sono: 357 e -438
+La distanza trovata per queste due coordinate è: 632025
+La distanza trovata è: 632250
+
+Le coordinate che uso per la distanza sono: -399 e -277
+La distanza trovata per queste due coordinate è: 14884
+Le coordinate che uso per la distanza sono: -137 e 326
+La distanza trovata per queste due coordinate è: 214369
+La distanza trovata è: 229253
+
+Le coordinate che uso per la distanza sono: -399 e 324
+La distanza trovata per queste due coordinate è: 522729
+Le coordinate che uso per la distanza sono: -137 e -438
+La distanza trovata per queste due coordinate è: 90601
+La distanza trovata è: 613330
+
+Le coordinate che uso per la distanza sono: -407 e -277
+La distanza trovata per queste due coordinate è: 16900
+Le coordinate che uso per la distanza sono: 168 e 326
+La distanza trovata per queste due coordinate è: 24964
+La distanza trovata è: 41864
+
+Le coordinate che uso per la distanza sono: -407 e 324
+La distanza trovata per queste due coordinate è: 534361
+Le coordinate che uso per la distanza sono: 168 e -438
+La distanza trovata per queste due coordinate è: 367236
+La distanza trovata è: 901597
+
+Le coordinate che uso per la distanza sono: 441 e -277
+La distanza trovata per queste due coordinate è: 515524
+Le coordinate che uso per la distanza sono: 43 e 326
+La distanza trovata per queste due coordinate è: 80089
+La distanza trovata è: 595613
+
+Le coordinate che uso per la distanza sono: 441 e 324
+La distanza trovata per queste due coordinate è: 13689
+Le coordinate che uso per la distanza sono: 43 e -438
+La distanza trovata per queste due coordinate è: 231361
+La distanza trovata è: 245050
+
+Le coordinate che uso per la distanza sono: -113 e -277
+La distanza trovata per queste due coordinate è: 26896
+Le coordinate che uso per la distanza sono: -432 e 326
+La distanza trovata per queste due coordinate è: 574564
+La distanza trovata è: 601460
+
+Le coordinate che uso per la distanza sono: -113 e 324
+La distanza trovata per queste due coordinate è: 190969
+Le coordinate che uso per la distanza sono: -432 e -438
+La distanza trovata per queste due coordinate è: 36
+La distanza trovata è: 191005
+
+Le coordinate che uso per la distanza sono: 55 e -277
+La distanza trovata per queste due coordinate è: 110224
+Le coordinate che uso per la distanza sono: 65 e 326
+La distanza trovata per queste due coordinate è: 68121
+La distanza trovata è: 178345
+
+Le coordinate che uso per la distanza sono: 55 e 324
+La distanza trovata per queste due coordinate è: 72361
+Le coordinate che uso per la distanza sono: 65 e -438
+La distanza trovata per queste due coordinate è: 253009
+La distanza trovata è: 325370
+
+Le coordinate che uso per la distanza sono: -31 e -277
+La distanza trovata per queste due coordinate è: 60516
+Le coordinate che uso per la distanza sono: 38 e 326
+La distanza trovata per queste due coordinate è: 82944
+La distanza trovata è: 143460
+
+Le coordinate che uso per la distanza sono: -31 e 324
+La distanza trovata per queste due coordinate è: 126025
+Le coordinate che uso per la distanza sono: 38 e -438
+La distanza trovata per queste due coordinate è: 226576
+La distanza trovata è: 352601
+
+Le coordinate che uso per la distanza sono: 396 e -277
+La distanza trovata per queste due coordinate è: 452929
+Le coordinate che uso per la distanza sono: 314 e 326
+La distanza trovata per queste due coordinate è: 144
+La distanza trovata è: 453073
+
+Le coordinate che uso per la distanza sono: 396 e 324
+La distanza trovata per queste due coordinate è: 5184
+Le coordinate che uso per la distanza sono: 314 e -438
+La distanza trovata per queste due coordinate è: 565504
+La distanza trovata è: 570688
+
+Le coordinate che uso per la distanza sono: -415 e -277
+La distanza trovata per queste due coordinate è: 19044
+Le coordinate che uso per la distanza sono: 453 e 326
+La distanza trovata per queste due coordinate è: 16129
+La distanza trovata è: 35173
+
+Le coordinate che uso per la distanza sono: -415 e 324
+La distanza trovata per queste due coordinate è: 546121
+Le coordinate che uso per la distanza sono: 453 e -438
+La distanza trovata per queste due coordinate è: 793881
+La distanza trovata è: 1340002
+
+Le coordinate che uso per la distanza sono: 226 e -277
+La distanza trovata per queste due coordinate è: 253009
+Le coordinate che uso per la distanza sono: 436 e 326
+La distanza trovata per queste due coordinate è: 12100
+La distanza trovata è: 265109
+
+Le coordinate che uso per la distanza sono: 226 e 324
+La distanza trovata per queste due coordinate è: 9604
+Le coordinate che uso per la distanza sono: 436 e -438
+La distanza trovata per queste due coordinate è: 763876
+La distanza trovata è: 773480
+
+Le coordinate che uso per la distanza sono: 306 e -277
+La distanza trovata per queste due coordinate è: 339889
+Le coordinate che uso per la distanza sono: 375 e 326
+La distanza trovata per queste due coordinate è: 2401
+La distanza trovata è: 342290
+
+Le coordinate che uso per la distanza sono: 306 e 324
+La distanza trovata per queste due coordinate è: 324
+Le coordinate che uso per la distanza sono: 375 e -438
+La distanza trovata per queste due coordinate è: 660969
+La distanza trovata è: 661293
+
+Le coordinate che uso per la distanza sono: -62 e -277
+La distanza trovata per queste due coordinate è: 46225
+Le coordinate che uso per la distanza sono: -323 e 326
+La distanza trovata per queste due coordinate è: 421201
+La distanza trovata è: 467426
+
+Le coordinate che uso per la distanza sono: -62 e 324
+La distanza trovata per queste due coordinate è: 148996
+Le coordinate che uso per la distanza sono: -323 e -438
+La distanza trovata per queste due coordinate è: 13225
+La distanza trovata è: 162221
+
+Le coordinate che uso per la distanza sono: -479 e -277
+La distanza trovata per queste due coordinate è: 40804
+Le coordinate che uso per la distanza sono: -418 e 326
+La distanza trovata per queste due coordinate è: 553536
+La distanza trovata è: 594340
+
+Le coordinate che uso per la distanza sono: -479 e 324
+La distanza trovata per queste due coordinate è: 644809
+Le coordinate che uso per la distanza sono: -418 e -438
+La distanza trovata per queste due coordinate è: 400
+La distanza trovata è: 645209
+
+Le coordinate che uso per la distanza sono: -77 e -277
+La distanza trovata per queste due coordinate è: 40000
+Le coordinate che uso per la distanza sono: 285 e 326
+La distanza trovata per queste due coordinate è: 1681
+La distanza trovata è: 41681
+
+Le coordinate che uso per la distanza sono: -77 e 324
+La distanza trovata per queste due coordinate è: 160801
+Le coordinate che uso per la distanza sono: 285 e -438
+La distanza trovata per queste due coordinate è: 522729
+La distanza trovata è: 683530
+
+Le coordinate che uso per la distanza sono: -364 e -277
+La distanza trovata per queste due coordinate è: 7569
+Le coordinate che uso per la distanza sono: -63 e 326
+La distanza trovata per queste due coordinate è: 151321
+La distanza trovata è: 158890
+
+Le coordinate che uso per la distanza sono: -364 e 324
+La distanza trovata per queste due coordinate è: 473344
+Le coordinate che uso per la distanza sono: -63 e -438
+La distanza trovata per queste due coordinate è: 140625
+La distanza trovata è: 613969
+
+Le coordinate che uso per la distanza sono: 0 e -277
+La distanza trovata per queste due coordinate è: 76729
+Le coordinate che uso per la distanza sono: 0 e 326
+La distanza trovata per queste due coordinate è: 106276
+La distanza trovata è: 183005
+
+Le coordinate che uso per la distanza sono: 0 e 324
+La distanza trovata per queste due coordinate è: 104976
+Le coordinate che uso per la distanza sono: 0 e -438
+La distanza trovata per queste due coordinate è: 191844
+La distanza trovata è: 296820
+
+Le coordinate che uso per la distanza sono: 0 e -277
+La distanza trovata per queste due coordinate è: 76729
+Le coordinate che uso per la distanza sono: 0 e 326
+La distanza trovata per queste due coordinate è: 106276
+La distanza trovata è: 183005
+
+Le coordinate che uso per la distanza sono: 0 e 324
+La distanza trovata per queste due coordinate è: 104976
+Le coordinate che uso per la distanza sono: 0 e -438
+La distanza trovata per queste due coordinate è: 191844
+La distanza trovata è: 296820
+
+Le coordinate che uso per la distanza sono: 0 e -277
+La distanza trovata per queste due coordinate è: 76729
+Le coordinate che uso per la distanza sono: 0 e 326
+La distanza trovata per queste due coordinate è: 106276
+La distanza trovata è: 183005
+
+Le coordinate che uso per la distanza sono: 0 e 324
+La distanza trovata per queste due coordinate è: 104976
+Le coordinate che uso per la distanza sono: 0 e -438
+La distanza trovata per queste due coordinate è: 191844
+La distanza trovata è: 296820
+
+Le coordinate che uso per la distanza sono: 0 e -277
+La distanza trovata per queste due coordinate è: 76729
+Le coordinate che uso per la distanza sono: 0 e 326
+La distanza trovata per queste due coordinate è: 106276
+La distanza trovata è: 183005
+
+Le coordinate che uso per la distanza sono: 0 e 324
+La distanza trovata per queste due coordinate è: 104976
+Le coordinate che uso per la distanza sono: 0 e -438
+La distanza trovata per queste due coordinate è: 191844
+La distanza trovata è: 296820
+
+Le coordinate che uso per la distanza sono: 0 e -277
+La distanza trovata per queste due coordinate è: 76729
+Le coordinate che uso per la distanza sono: 0 e 326
+La distanza trovata per queste due coordinate è: 106276
+La distanza trovata è: 183005
+
+Le coordinate che uso per la distanza sono: 0 e 324
+La distanza trovata per queste due coordinate è: 104976
+Le coordinate che uso per la distanza sono: 0 e -438
+La distanza trovata per queste due coordinate è: 191844
+La distanza trovata è: 296820
+
+Il costo del clustering lineare è: 635834
+
+Rep 0: Outputs are equal	 DPU cost: 635834	 Linear cost: 635834
 
 
 Tempi medi:
-CPU-DPU: 0.403333(ms)	DPU Kernel: 115.731000(ms)	DPU-CPU e centri finali: 0.133000(ms)	CPU: 0.222333(ms)
+CPU-DPU: 0.455000(ms)	DPU Kernel: 8.897000(ms)	DPU-CPU e centri finali: 0.126000(ms)	CPU: 0.002000(ms)
 
 Centri finali:
-Centro: 0 [-336, -390]
-Centro: 1 [2, -230]
-Centro: 2 [-4, 8]
-
-Il tempo trascorso per eseguire l'algoritmo con 64 DPUs, 8 TASKLET e BLOCK LENGTH 1024 è: 4.5538000000011625e-05
-
---------------------------------------------------
-
-Allocated 64 DPU(s)
-NR_TASKLETS 16 BLOCK_LENGTH 512
-Centers -k 3
-Dataset path: /home/deid/tesi/prova/DS/dataset/int-small.csv
-
-Rep 0: Outputs are equal	 DPU cost: 18446737837417305234	 Linear cost: 18446736669186312276
-Rep 1: Outputs are equal	 DPU cost: 18446737837417305234	 Linear cost: 18446736669186312276
-Rep 2: Outputs are equal	 DPU cost: 18446737837417305234	 Linear cost: 18446736669186312276
-Rep 3: Outputs are equal	 DPU cost: 18446739615533699661	 Linear cost: 18446737940496507844
-
-
-Tempi medi:
-CPU-DPU: 0.403667(ms)	DPU Kernel: 130.681333(ms)	DPU-CPU e centri finali: 0.146333(ms)	CPU: 0.216333(ms)
-
-Centri finali:
-Centro: 0 [-436, 73]
-Centro: 1 [-21, -1]
-Centro: 2 [0, 188]
-
-Il tempo trascorso per eseguire l'algoritmo con 64 DPUs, 16 TASKLET e BLOCK LENGTH 512 è: 5.9797999999999796e-05
+Centro: 0 [-277, 326]
+Centro: 1 [324, -438]
 
 --------------------------------------------------
 
 CPU-DPU
 
-0.236333	0.243333	0.403333	0.403667	
+0.455000	
 --------------------------------------------------
 
 DPU-Kernel
 
-133.543667	135.991667	115.731000	130.681333	
+8.897000	
 --------------------------------------------------
 
 DPU-CPU e centri finali
 
-0.081000	0.025667	0.133000	0.146333	
+0.126000	
 --------------------------------------------------
 
 CPU
 
-0.283000	0.200000	0.222333	0.216333	
+0.002000	
 --------------------------------------------------
 

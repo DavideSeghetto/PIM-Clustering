@@ -70,19 +70,22 @@ static void init_dataset(T* points_buffer, char *path) {
     while (feof(ds) != true) {
         num = fgets(row, 100, ds);
         num = strtok(row, ",");
-
         while(num != NULL) {
-
-            #ifdef FLOAT
-                points_buffer[i++] = atof(num);
-            #else
-                points_buffer[i++] = atoi(num);
-            #endif
+            if(i < 20) printf("Il punto è: %s\t", num);
+            points_buffer[i++] = atoi(num);
 
             num = strtok(NULL, ",");
         }
+        if(i < 21) printf("\n");
 
-    }
+    }  
+    #if defined FLOAT || defined DOUBLE 
+        for(int i = 0; i < 20; i += 2) printf("Punto %d: %f, %f\n\n", i + 1, points_buffer[i], points_buffer[i + 1]);
+    #elif defined INT32
+        for(int i = 0; i < 20; i += 2) printf("Punto %d: %d, %d\n\n", i + 1, points_buffer[i], points_buffer[i + 1]);
+    #elif defined INT64
+        for(int i = 0; i < 20; i += 2) printf("Punto %d: %ld, %ld\n\n", i + 1, points_buffer[i], points_buffer[i + 1]);
+    #endif
     
     fclose(ds);
 }
@@ -167,19 +170,40 @@ static D get_linear_cost(uint32_t n_points, uint32_t n_centers, uint32_t dim, ui
         for(unsigned int j = 0; j < n_centers; j++) {
             uint32_t center_index = j*dim;
             D dist = 0;
+            D temp = 0;
         
             for (unsigned int k = 0; k < dim; k++) {
-                dist += distance(P[point_index+k], centers_set[center_index+k]); //TODO: non gestisce overflow.
+                temp = distance(P[point_index+k], centers_set[center_index+k]); //TODO: non gestisce overflow.
+                //dist += distance2(P[point_index+k], centers_set[center_index+k], i); //TODO: non gestisce overflow.
+                dist += temp;
+                //if(i < 10) {
+                    #if defined (FLOAT) || defined (DOUBLE)
+                        printf("Le coordinate che uso per la distanza sono: %f e %f\n", P[point_index+k], centers_set[center_index+k]);
+                        printf("La distanza trovata per queste due coordinate è: %f\n", temp);
+                    
+                    #elif defined INT32
+                        printf("Le coordinate che uso per la distanza sono: %d e %d\n", P[point_index+k], centers_set[center_index+k]);
+                        printf("La distanza trovata per queste due coordinate è: %ld\n", temp);
+                    
+                    #elif defined INT64
+                        printf("Le coordinate che uso per la distanza sono: %ld e %ld\n", P[point_index+k], centers_set[center_index+k]);
+                        printf("La distanza trovata per queste due coordinate è: %ld\n", temp);
+                    
+                    #endif
+                //}
             }
-
+            //if(i < 10) 
+            printf("La distanza trovata è: %lu\n\n", dist);
             min_center_dist = (dist < min_center_dist) ? dist : min_center_dist;
         }
 
-        if (clustering_cost <= min_center_dist) {
-            clustering_cost = min_center_dist;
-        }
+        if (clustering_cost <= min_center_dist) clustering_cost = min_center_dist;
     }
-    
+    #ifdef FLOAT
+        printf("Il costo del clustering lineare è: %f\n\n", clustering_cost);
+    #else
+        printf("Il costo del clustering lineare è: %lu\n\n", clustering_cost);
+    #endif
     return clustering_cost;
 }
 
@@ -361,11 +385,15 @@ int main(int argc, char **argv) {
         //Calcolo il costo del clustering effettuato linearmente su tutti i punti.
         D cpu_cost = get_linear_cost(p.n_points, p.n_centers, p.dim, (rand()%p.n_points)*p.rnd_first);
 
-        //Verifico i risultati.
+        //Verifico se i risultati ottenuti in DPUs e CPU sono uguali.
         bool status = true;
         for (unsigned int j = 0; j < p.n_centers; j++) {
+                if(!status) break;
                 for (unsigned int k = 0; k < p.dim; k++){
-                    if (H[j*p.dim + k] != C[j*p.dim + k]) status = false;
+                    if (H[j*p.dim + k] != C[j*p.dim + k]) {
+                        status = false;
+                        break;
+                    }
                 }
         }
         
@@ -385,6 +413,7 @@ int main(int argc, char **argv) {
 
     printf("\n\nCentri finali:\n");
     print_points(C, p.n_centers, p.dim);
+    printf("\n--------------------------------------------------\n\n");
 
     free(H);
     free(M);
