@@ -28,22 +28,22 @@ dovrebbe usare su massivi dataset*/
 
 /*Il k-center clustering è un problema di ottimizzazione. La soluzione è un sottoinsieme dell'intero dataset, che contiene k punti corrispondenti ai vari centri
 L'obiettivo dell'algoritmo è minimizzare la distanza massima tra un punto appartenente ad un cluster e il centro di quel cluster
-L'algoritmo consiste in un dataset al quale viene applicato l'algoritmo k center clustering. Per dataset di grandi dimensioni suddivido il dataset tra le DPU e su ciascuna
+Il programma consiste in un dataset al quale viene applicato l'algoritmo k center clustering. Per dataset di grandi dimensioni suddivido il dataset tra le DPU e su ciascuna
 applico l'algoritmo. Sulla CPU faccio la stessa cosa per un controllo di velocità e inoltre applico l'algoritmo all'intero dataset senza spezzettarlo.
 Descrizione dei risultati ottenuti:
-DPU cost: costo dell'algoritmo spezzettando il dataset
-Linear cost: costo dell'algoritmo facendolo linearmente sulla CPU
+-) DPU cost: costo dell'algoritmo spezzettando il dataset
+-) Linear cost: costo dell'algoritmo facendolo linearmente sulla CPU
 L'approccio lineare, ossia senza spezzettare il dataset deve avere un costo minore, deve essere cioè più preciso perchè appunto non applico "approssimazioni" al dataset 
 (spezzettamenti). Il problema è NP Hard (ricontrolla questa terminologia), quindi si può risolvere solo in un tempo esponenziale. L'algoritmo lineare K center clustering
 è quindi un'approssimazione. Se ad esempio il risultato ottimo del problema è 15, l'approccio lineare mi darà nel migliore dei casi un risultato pari a 30. Quindi
 la correttezza diminuisce di un fattore 2. Mentre con l'approccio fft (spezzettato) la correttezza diminuisce di un fattore 4 (arrivo nel migliore dei casi a 60).
 In sostanza il costo, più piccolo è meglio è. Il costo dell'algoritmo è la distanza più grande di un punto dal suo centro (spiegazione minuto 39 - 40 audio).
-CPU-DPU è il tempo di caricamento dei dati nelle DPU
-DPU Kernel è il tempo di esecuzione dell'algoritmo spezzettato nelle DPU
-DPU - CPU e centri finali è il tempo di spostamento dei centri calcolati nelle DPU alla CPU e il calcolo dell'ultima passata nella CPU per il calcolo finale dei centri
+-) CPU-DPU è il tempo di caricamento dei dati nelle DPU
+-) DPU Kernel è il tempo di esecuzione dell'algoritmo spezzettato nelle DPU
+-) DPU - CPU e centri finali è il tempo di spostamento dei centri calcolati nelle DPU alla CPU e il calcolo dell'ultima passata nella CPU per il calcolo finale dei centri
 Il tempo totale dell'algoritmo spezzettato (che quindi include il caricamento dei dati nelle DPU, l'esecuzione nelle varie DPU, lo spostamento dei centri intermedi nella CPU
 e l'esecuzione dell'ultima passata nella CPU) è la somma di questi tre tempi
-CPU invece è il tempo per fare l'algoritmo sempre con spezzettamento ma nella CPU (ovviamente stessi parametri, stesso dataset, stesse partizioni)
+-) CPU invece è il tempo per fare l'algoritmo sempre con spezzettamento ma nella CPU (ovviamente stessi parametri, stesso dataset, stesse partizioni)
 Il tempo di esecuzione dell'algoritmo completo senza spezzettamento nella CPU non è calcolato, si potrebbe aggiungere se utile
 Outputs are equal mi indica che l'algoritmo runnato sulle DPU e quello runnato sulle CPU ha dato lo stesso risultato, ovvero gli stessi centri*/
 
@@ -71,27 +71,21 @@ static void init_dataset(T* points_buffer, char *path) {
         num = fgets(row, 100, ds);
         num = strtok(row, ",");
         while(num != NULL) {
-            if(i < 20) printf("Il punto è: %s\t", num);
-            points_buffer[i++] = atoi(num);
-
+            #if defined FLOAT || DOUBLE
+                points_buffer[i++] = atof(num);
+            #elif defined INT32
+                points_buffer[i++] = atoi(num);
+            #else
+                points_buffer[i++] = atol(num);
+            #endif
             num = strtok(NULL, ",");
         }
-        if(i < 21) printf("\n");
-
-    }  
-    #if defined FLOAT || defined DOUBLE 
-        for(int i = 0; i < 20; i += 2) printf("Punto %d: %f, %f\n\n", i + 1, points_buffer[i], points_buffer[i + 1]);
-    #elif defined INT32
-        for(int i = 0; i < 20; i += 2) printf("Punto %d: %d, %d\n\n", i + 1, points_buffer[i], points_buffer[i + 1]);
-    #elif defined INT64
-        for(int i = 0; i < 20; i += 2) printf("Punto %d: %ld, %ld\n\n", i + 1, points_buffer[i], points_buffer[i + 1]);
-    #endif
-    
+    }    
     fclose(ds);
 }
 
 
-//Estrae "n_points" (k) centri da "points_buffer" (insieme di punti che gli passo) inserrendoli in "centers_buffer".
+//Estrae "n_centers" (k) centri da "point_buffer" (insieme di punti che gli passo) inserendoli in "centers_buffer".
 static void get_centers(T* point_buffer, T* centers_buffer, uint32_t n_points, uint32_t n_centers, uint32_t dim, uint32_t first_offset) {
     
     //Scelgo "a caso" il primo centro.
@@ -173,37 +167,17 @@ static D get_linear_cost(uint32_t n_points, uint32_t n_centers, uint32_t dim, ui
             D temp = 0;
         
             for (unsigned int k = 0; k < dim; k++) {
-                temp = distance(P[point_index+k], centers_set[center_index+k]); //TODO: non gestisce overflow.
-                //dist += distance2(P[point_index+k], centers_set[center_index+k], i); //TODO: non gestisce overflow.
-                dist += temp;
-                //if(i < 10) {
-                    #if defined (FLOAT) || defined (DOUBLE)
-                        printf("Le coordinate che uso per la distanza sono: %f e %f\n", P[point_index+k], centers_set[center_index+k]);
-                        printf("La distanza trovata per queste due coordinate è: %f\n", temp);
-                    
-                    #elif defined INT32
-                        printf("Le coordinate che uso per la distanza sono: %d e %d\n", P[point_index+k], centers_set[center_index+k]);
-                        printf("La distanza trovata per queste due coordinate è: %ld\n", temp);
-                    
-                    #elif defined INT64
-                        printf("Le coordinate che uso per la distanza sono: %ld e %ld\n", P[point_index+k], centers_set[center_index+k]);
-                        printf("La distanza trovata per queste due coordinate è: %ld\n", temp);
-                    
-                    #endif
-                //}
+                temp = distance(P[point_index+k], centers_set[center_index+k]);
+                //dist += distance(P[point_index+k], centers_set[center_index+k]); //TODO: non gestisce overflow.
+                dist += temp; //Non faccio la radice perchè tanto comunque se la volessi fare il programma dovrebbe arrivare a tale numero e di conseguenza se va in segfault
+                              //senza radice ci va anche con.
             }
-            //if(i < 10) 
-            printf("La distanza trovata è: %lu\n\n", dist);
+            
             min_center_dist = (dist < min_center_dist) ? dist : min_center_dist;
         }
 
         if (clustering_cost <= min_center_dist) clustering_cost = min_center_dist;
     }
-    #ifdef FLOAT
-        printf("Il costo del clustering lineare è: %f\n\n", clustering_cost);
-    #else
-        printf("Il costo del clustering lineare è: %lu\n\n", clustering_cost);
-    #endif
     return clustering_cost;
 }
 
@@ -211,7 +185,7 @@ static D get_linear_cost(uint32_t n_points, uint32_t n_centers, uint32_t dim, ui
 int main(int argc, char **argv) {
 
     //Carico i parametri nella struttura
-    //Parametri per l'esecuzione del benchmark: #punti, #centri, #dimensione dello spazio e #ripetizioni efettuate.
+    //Parametri per l'esecuzione dei benchmark: #punti, #centri, #dimensione dello spazio e #ripetizioni efettuate.
     struct Params p = input_params(argc, argv);
     if (p.n_points == 0) return -1; //Il file non è stato aperto correttamente.
 
@@ -345,6 +319,7 @@ int main(int argc, char **argv) {
         }
         
         //DA QUI IN POI INIZIO IL CALCOLO DEL COSTO DEL CLUSTERING CON SPEZZETTAMENTO SU DPU
+
         //Carico il programma per calcolare il costo del clustering.
         DPU_ASSERT(dpu_load(dpu_set, DPU_BINARY2, NULL));
         
@@ -360,7 +335,7 @@ int main(int argc, char **argv) {
         uint32_t center_set_size = (p.n_centers*p.dim*sizeof(T) % 8) == 0 ? p.n_centers*p.dim*sizeof(T) : roundup(p.n_centers*p.dim*sizeof(T), 8);
         DPU_FOREACH(dpu_set, dpu, i) {
             //LA COSA INTERESSANTE È CHE OGNI DPU HA ANCORA IN MEMORIA LA SUA PARTIZIONI DI P QUINDI ADESSO BASTA CHE PASSO C E CIASCUNA DPU PUÒ QUINDI FARE IL COSTO
-                DPU_ASSERT(dpu_prepare_xfer(dpu, C)); //PRIMA PASSAVO PORZIONE DI P ORA PASSO C PERCHÈ HO GIÀ CALCOLATO I CENTRI MEMORIZZATI C
+            DPU_ASSERT(dpu_prepare_xfer(dpu, C)); //PRIMA PASSAVO PORZIONE DI P ORA PASSO C PERCHÈ HO GIÀ CALCOLATO I CENTRI MEMORIZZATI C (audio 1:27:00)
         }
         DPU_ASSERT(dpu_push_xfer(dpu_set, DPU_XFER_TO_DPU, DPU_MRAM_HEAP_POINTER_NAME, dpu_center_set_addr, center_set_size, DPU_XFER_DEFAULT));
         
@@ -375,7 +350,7 @@ int main(int argc, char **argv) {
         }
         DPU_ASSERT(dpu_push_xfer(dpu_set, DPU_XFER_FROM_DPU, DPU_MRAM_HEAP_POINTER_NAME, dpu_center_set_addr, sizeof(D), DPU_XFER_DEFAULT));
 
-        //Calcolo costo del clustering.
+        //Calcolo costo del clustering, trovando il massimo tra ciascun costo calcolato da ciascuna DPU
         D dpu_cost = 0;
         for (int j = 0; j < NR_DPUS; j++) {
             if (costs[j] > dpu_cost)
@@ -400,7 +375,7 @@ int main(int argc, char **argv) {
         print_res(status, rep, dpu_cost, cpu_cost);
     }
 
-    //Stampo media tempi di esecuzione
+    //Stampo media tempi di esecuzione (vengono messi nel file e non a video perchè nel file python uso >>)
     printf("\n\nTempi medi:\n");
     printf("CPU-DPU: ");
     print(&timer, 0, p.n_reps);

@@ -2,15 +2,19 @@ import os
 import sys
 import random
 import re
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
+#from matplotlib.ticker import FormatStrFormatter
 
 rootdir = "/home/deid/tesi/PIM-Clustering" #Path della repo "Clustering" sul dispositivo
+#rootdir = "/home/upmem0013/lasquini/Davide_Seghetto/PIM-Clustering" #Path della repo "Clustering" sul dispositivo
 
 #FAI UNO STUDIO PER VEDERE SE C'È VERAMENTE UN VATAGGIO PRESTAZIONALE A FARE STA ROBA CON LE DPU
 #RICORDA DI MODIFICARE -r SE C'È BISOGNO
-# w = warmpup   e = executions    n = # of points    k = # number of centers    d = dimension of points   r if first point random
+
+#-B in makefile è usata per forzare la ricompilazione di tutti i target a prescindere che siano stati modificati o meno dall'ultima compilazione
+# w = warmpup   e = executions    p = dataset path    n = # of points    k = # number of centers    d = dimension of points   r if first point random
 applications = {"KCC"   : ["NR_DPUS=X NR_TASKLETS=W BL=Z TYPE=F make -B all", "./bin/host_app -w 1 -e 3 -n #points -k #centers -d #dimensions -r"],
-                "DS"    : ["NR_DPUS=X NR_TASKLETS=W BL=Z TYPE=F make -B all", "./bin/host_app -w 0 -e 1 -p #ds-path -k #centers"]}
+                "DS"    : ["NR_DPUS=X NR_TASKLETS=W BL=Z TYPE=F make -B all", "./bin/host_app -w 1 -e 5 -p #ds-path -k #centers -r"]}
 
 #types = ["UINT32", "UINT64", "INT32", "INT64", "FLOAT", "DOUBLE", "CHAR", "SHORT"] RIMETTILO QUANDO AVRAI DATA SET CON PUNTI TUTTI POSITIVI
 types = ["INT32", "INT64", "FLOAT", "DOUBLE"]
@@ -85,20 +89,20 @@ def run_app(app_name, run_type):
             os.system(run_cmd_print)
 
 
+#NR_DPUS = [32, 64, 128, 256, 512, 1024, 2048]
+#NR_TASKLETS = [1, 2, 4, 8, 16, 24]
+NR_DPUS = [32, 40, 45, 50, 55, 64]
+NR_TASKLETS = [24]
+#BLOCK_LENGTH = ["1024", "512", "256", "128", "64", "32"]
+BLOCK_LENGTH = ["128"]
+
 def run_ds(ds, run_type, centers):
     if (run_type not in types):
         print("Run type: '" + run_type + "' not avaible.")
         print("Avaible types:")
         for t in types:
             print(t)
-        return
-    
-    #NR_DPUS = [1, 4, 16, 64]
-    NR_DPUS = [64]
-    #NR_TASKLETS = [1, 2, 4, 8, 16]
-    NR_TASKLETS = [16]
-    #BLOCK_LENGTH = ["1024", "512", "256", "128", "64"]
-    BLOCK_LENGTH = ["1024", "512"]
+        exit(1)
 
     make_cmd = applications["DS"][0]
     run_cmd_print = applications["DS"][1]
@@ -112,45 +116,43 @@ def run_ds(ds, run_type, centers):
 
 
     for d in NR_DPUS:
-        for i, t in enumerate(NR_TASKLETS): #diventa nella forma [(0, 1), (1, 2), (2, 4) ecc.] dove il secondo numero rappresenta il numero di tasklet
-
-            m = make_cmd.replace("X", str(d))
-            m = m.replace("W", str(t))
-            m = m.replace("Z", BLOCK_LENGTH[i])
-            m = m.replace("F", run_type)
-            os.system(m)
+        for t in NR_TASKLETS:
+            for i in BLOCK_LENGTH:
             
-            file_name = rootdir + "/DS/profile/ds_results.txt"
-
-            f = open(file_name, "a")
-            f.write("Allocated " + str(d) + " DPU(s)\n")
-            f.write("NR_TASKLETS " + str(t) + " BLOCK_LENGTH " + BLOCK_LENGTH[i] + "\n")
-            f.write("Centers -k " + str(centers) + "\n")
-            f.write("Dataset path: " + ds + "\n\n")
-            f.close()
-
-            run_cmd_print = run_cmd_print.replace("#centers", centers)
-            run_cmd_print = run_cmd_print.replace("#ds-path", ds)
-
-            print("Running: " + run_cmd_print + f" DPUs {d} TASKLET {t} and BLOCK LENGTH {BLOCK_LENGTH[i]}\n")
-            run_cmd = run_cmd_print + " >> " + file_name
-            os.system(run_cmd)
+                m = make_cmd.replace("X", str(d))
+                m = m.replace("W", str(t))
+                m = m.replace("Z", str(i))
+                m = m.replace("F", run_type)
+                os.system(m)
+                
+                file_name = rootdir + "/DS/profile/ds_results.txt"
+    
+                f = open(file_name, "a")
+                f.write("Allocated " + str(d) + " DPU(s)\n")
+                f.write("NR_TASKLETS " + str(t) + " BLOCK_LENGTH " + str(i) + "\n")
+                f.write("Centers -k " + str(centers) + "\n")
+                f.write("Dataset path: " + ds + "\n\n")
+                f.close()
+    
+                run_cmd_print = run_cmd_print.replace("#centers", centers)
+                run_cmd_print = run_cmd_print.replace("#ds-path", ds)
+    
+                print("Running: " + run_cmd_print + f" DPUs {d} TASKLET {t} and BLOCK LENGTH {i}\n")
+                run_cmd = run_cmd_print + " >> " + file_name
+                os.system(run_cmd)
 
 
 def main():
-    if (len(sys.argv) < 3):
-        print("Usage: python3 " + sys.argv[0] + " 'application_name' 'type or ds-path'")
-        print("Applications avaiable:")
-        for key, _ in applications.items():
-            print(key)
-        print("Avaiable types:")
-        for t in types:
-            print(t)
-        print("<ds-path>")
-        return
-
     app = sys.argv[1]
 
+    if (len(sys.argv) != 3 and app == "KCC"):
+        print("Usage: python3 " + sys.argv[0] + " " + app + " 'type'")
+        exit(1)
+    
+    elif (len(sys.argv) != 5 and app == "DS"):
+        print("Usage: python3 " + sys.argv[0] + " " + app + " 'ds-path' 'type' '# centers'")
+        exit(1)
+    
     if (app == "DS"):
         run_ds(sys.argv[2], sys.argv[3], sys.argv[4])
 
@@ -162,22 +164,24 @@ def main():
         pattern_data = re.compile(r"\d+[.]\d+")
 
         with open ("/home/deid/tesi/PIM-Clustering/DS/profile/ds_results.txt") as file:
+        #with open ("/home/upmem0013/lasquini/Davide_Seghetto/PIM-Clustering/DS/profile/ds_results.txt") as file:    
             for line in file:
                 if pattern_line.search(line) != None:
                     lista = pattern_data.findall(line)
                     if len(lista):
-                        cpu_dpu.append(str(lista[0]))
-                        dpu_kernel.append(str(lista[1]))  
-                        dpu_cpu_and.append(str(lista[2]))  
-                        cpu.append(str(lista[3])) 
+                        cpu_dpu.append(float(lista[0]))
+                        dpu_kernel.append(float(lista[1]))  
+                        dpu_cpu_and.append(float(lista[2]))  
+                        cpu.append(float(lista[3]))
         
         with open ("/home/deid/tesi/PIM-Clustering/DS/profile/ds_results.txt", "a") as file:
+        #with open ("/home/upmem0013/lasquini/Davide_Seghetto/PIM-Clustering/DS/profile/ds_results.txt") as file:
             file.write("CPU-DPU\n")
             i = 0
             for data in cpu_dpu:
                 if i % 10 == 0:
                     file.write("\n")
-                file.write(data + "\t")
+                file.write(f"{data}\t")
                 i = i + 1
             file.write("\n--------------------------------------------------\n\n")
             file.write("DPU-Kernel\n") 
@@ -185,7 +189,7 @@ def main():
             for data in dpu_kernel:
                 if i % 10 == 0:
                     file.write("\n")
-                file.write(data + "\t")
+                file.write(f"{data}\t")
                 i = i + 1
             file.write("\n--------------------------------------------------\n\n")
             file.write("DPU-CPU e centri finali\n")
@@ -193,7 +197,7 @@ def main():
             for data in dpu_cpu_and:
                 if i % 10 == 0:
                     file.write("\n")
-                file.write(data + "\t")
+                file.write(f"{data}\t")
                 i = i + 1
             file.write("\n--------------------------------------------------\n\n")
             file.write("CPU\n")
@@ -201,9 +205,21 @@ def main():
             for data in cpu:
                 if i % 10 == 0:
                     file.write("\n")
-                file.write(data + "\t")
+                file.write(f"{data}\t")
                 i = i + 1
             file.write("\n--------------------------------------------------\n\n")
+        print(dpu_kernel)
+        #plt.plot(NR_DPUS, dpu_kernel, color='red')
+        #plt.scatter(NR_DPUS, dpu_kernel, color='red')
+        #lista = []
+        #for i in range(0, 4, 2):
+        #    lista.append(dpu_kernel[i])
+        #plt.yticks(lista)
+        #plt.title("Curva del DPU kernel")
+        #plt.xlabel("NR_DPUS")
+        #plt.ylabel("DPU-KERNEL")
+        #plt.grid()
+        #plt.show()
 
     else:
         run_app(app, sys.argv[2])
