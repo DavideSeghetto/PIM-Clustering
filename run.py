@@ -16,7 +16,6 @@ rootdir = "/home/deid/tesi/PIM-Clustering" #Path della repo "Clustering" sul dis
 applications = {"KCC"   : ["NR_DPUS=X NR_TASKLETS=W BL=Z TYPE=F make -B all", "./bin/host_app -w 1 -e 3 -n #points -k #centers -d #dimensions -r"],
                 "DS"    : ["NR_DPUS=X NR_TASKLETS=W BL=Z TYPE=F make -B all", "./bin/host_app -w 1 -e 5 -p #ds-path -k #centers -r"]}
 
-#types = ["UINT32", "UINT64", "INT32", "INT64", "FLOAT", "DOUBLE", "CHAR", "SHORT"] RIMETTILO QUANDO AVRAI DATA SET CON PUNTI TUTTI POSITIVI
 types = ["INT32", "INT64", "FLOAT", "DOUBLE"]
 
 def run_app(app_name, run_type):
@@ -53,7 +52,7 @@ def run_app(app_name, run_type):
 
 
     for d in NR_DPUS:
-        for i, t in enumerate(NR_TASKLETS): #diventa nella forma [(0, 1), (1,2), (2,3) ecc.] dove il secondo numero rappresenta il numero di tasklet
+        for i, t in enumerate(NR_TASKLETS):
             m = make_cmd.replace("X", str(d))
             m = m.replace("W", str(t))
             m = m.replace("Z", BLOCK_LENGTH[i])
@@ -89,12 +88,13 @@ def run_app(app_name, run_type):
             os.system(run_cmd_print)
 
 
-#NR_DPUS = [32, 64, 128, 256, 512, 1024, 2048]
-#NR_TASKLETS = [1, 2, 4, 8, 16, 24]
-NR_DPUS = [32, 40, 45, 50, 55, 64]
+NR_DPUS = [33, 40, 43, 50, 55, 64]
+#NR_DPUS = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1500, 2000]
+#NR_DPUS = [64]
 NR_TASKLETS = [24]
-#BLOCK_LENGTH = ["1024", "512", "256", "128", "64", "32"]
+#NR_TASKLETS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 18, 20, 22, 24]
 BLOCK_LENGTH = ["128"]
+#BLOCK_LENGTH = ["1", "5", "10", "50", "100", "128"]
 
 def run_ds(ds, run_type, centers):
     if (run_type not in types):
@@ -159,7 +159,9 @@ def main():
         cpu_dpu = []
         dpu_kernel = []
         dpu_cpu_and = []
+        totale = []
         cpu = []
+
         pattern_line = re.compile(r"\bCPU-DPU: ")
         pattern_data = re.compile(r"\d+[.]\d+")
 
@@ -171,11 +173,12 @@ def main():
                     if len(lista):
                         cpu_dpu.append(float(lista[0]))
                         dpu_kernel.append(float(lista[1]))  
-                        dpu_cpu_and.append(float(lista[2]))  
+                        dpu_cpu_and.append(float(lista[2]))
+                        totale.append(float(lista[3]))
                         cpu.append(float(lista[3]))
         
         with open ("/home/deid/tesi/PIM-Clustering/DS/profile/ds_results.txt", "a") as file:
-        #with open ("/home/upmem0013/lasquini/Davide_Seghetto/PIM-Clustering/DS/profile/ds_results.txt") as file:
+        #with open ("/home/upmem0013/lasquini/Davide_Seghetto/PIM-Clustering/DS/profile/ds_results.txt, "a") as file:
             file.write("CPU-DPU\n")
             i = 0
             for data in cpu_dpu:
@@ -184,6 +187,7 @@ def main():
                 file.write(f"{data}\t")
                 i = i + 1
             file.write("\n--------------------------------------------------\n\n")
+            
             file.write("DPU-Kernel\n") 
             i = 0
             for data in dpu_kernel:
@@ -192,6 +196,7 @@ def main():
                 file.write(f"{data}\t")
                 i = i + 1
             file.write("\n--------------------------------------------------\n\n")
+            
             file.write("DPU-CPU e centri finali\n")
             i = 0
             for data in dpu_cpu_and:
@@ -200,6 +205,16 @@ def main():
                 file.write(f"{data}\t")
                 i = i + 1
             file.write("\n--------------------------------------------------\n\n")
+
+            file.write("Tempo totale\n")
+            i = 0
+            for data in totale:
+                if i % 10 == 0:
+                    file.write("\n")
+                file.write(f"{data}\t")
+                i = i + 1
+            file.write("\n--------------------------------------------------\n\n")
+
             file.write("CPU\n")
             i = 0
             for data in cpu:
@@ -208,19 +223,12 @@ def main():
                 file.write(f"{data}\t")
                 i = i + 1
             file.write("\n--------------------------------------------------\n\n")
-        print(dpu_kernel)
-        #plt.plot(NR_DPUS, dpu_kernel, color='red')
-        #plt.scatter(NR_DPUS, dpu_kernel, color='red')
-        #lista = []
-        #for i in range(0, 4, 2):
-        #    lista.append(dpu_kernel[i])
-        #plt.yticks(lista)
-        #plt.title("Curva del DPU kernel")
-        #plt.xlabel("NR_DPUS")
-        #plt.ylabel("DPU-KERNEL")
-        #plt.grid()
-        #plt.show()
-
+        
+        print(f"I tempi di CPU_DPU sono:\n{cpu_dpu}\n")
+        print(f"I tempi di dpu_kernel sono:\n{dpu_kernel}\n")
+        print(f"I tempi di DPU_CPU_AND sono:\n{dpu_cpu_and}\n")
+        print(f"I tempi del totale sono:\n{totale}\n")
+        print(f"I tempi di cpu sono:\n{cpu}")
     else:
         run_app(app, sys.argv[2])
     

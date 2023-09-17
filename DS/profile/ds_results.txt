@@ -1,158 +1,163 @@
-Allocated 32 DPU(s)
+Allocated 33 DPU(s)
 NR_TASKLETS 24 BLOCK_LENGTH 128
 Centers -k 3
-Dataset path: /home/deid/tesi/PIM-Clustering/DS/dataset/int/100k/int_4.csv
+Dataset path: /home/deid/tesi/PIM-Clustering/DS/dataset/int/int_vise/int-small.csv
 
-Rep 0: Outputs are equal	 DPU cost: 1492425	 Linear cost: 1431042
-Rep 1: Outputs are equal	 DPU cost: 1768009	 Linear cost: 1676166
-Rep 2: Outputs are equal	 DPU cost: 1483137	 Linear cost: 1447092
-Rep 3: Outputs are equal	 DPU cost: 1692067	 Linear cost: 1580866
-Rep 4: Outputs are equal	 DPU cost: 1585942	 Linear cost: 1538655
-Rep 5: Outputs are equal	 DPU cost: 1174743	 Linear cost: 1762980
+Rep 0: Outputs are equal	 DPU cost: 528073	 Linear cost: 414756
+Rep 1: Outputs are equal	 DPU cost: 491121	 Linear cost: 357128
+Rep 2: Outputs are equal	 DPU cost: 491121	 Linear cost: 357128
+Rep 3: Outputs are equal	 DPU cost: 491121	 Linear cost: 357128
+Rep 4: Outputs are equal	 DPU cost: 491121	 Linear cost: 357128
+Rep 5: Outputs are equal	 DPU cost: 408708	 Linear cost: 487786
 
 
 Tempi medi:
-CPU-DPU: 0.656800(ms)	DPU Kernel: 16120.155200(ms)	DPU-CPU e centri finali: 0.113600(ms)	CPU: 22.906000(ms)
+CPU-DPU: 0.307200(ms)	DPU Kernel: 144.525200(ms)	DPU-CPU e centri finali: 0.084600(ms)	CPU: 0.236800(ms)
 
 Centri finali:
-Centro: 0 [245, 127, -149, -65]
-Centro: 1 [-491, -500, 477, 453]
-Centro: 2 [-470, 491, 476, -481]
+Centro: 0 [-186, 59]
+Centro: 1 [489, -500]
+Centro: 2 [497, 486]
 
 --------------------------------------------------
 
 Allocated 40 DPU(s)
 NR_TASKLETS 24 BLOCK_LENGTH 128
 Centers -k 3
-Dataset path: /home/deid/tesi/PIM-Clustering/DS/dataset/int/100k/int_4.csv
+Dataset path: /home/deid/tesi/PIM-Clustering/DS/dataset/int/int_vise/int-small.csv
 
-Rep 0: Outputs are equal	 DPU cost: 1520650	 Linear cost: 1484406
-Rep 1: Outputs are equal	 DPU cost: 1725867	 Linear cost: 1324158
-Rep 2: Outputs are equal	 DPU cost: 1414957	 Linear cost: 1551893
-Rep 3: Outputs are equal	 DPU cost: 1082982	 Linear cost: 1479507
-Rep 4: Outputs are equal	 DPU cost: 1249471	 Linear cost: 1566136
-Rep 5: Outputs are equal	 DPU cost: 1735855	 Linear cost: 1116150
+Rep 0: Outputs are equal	 DPU cost: 517805	 Linear cost: 487786
+Rep 1: Outputs are equal	 DPU cost: 369877	 Linear cost: 709978
+Rep 2: Outputs are equal	 DPU cost: 369877	 Linear cost: 709978
+Rep 3: Outputs are equal	 DPU cost: 369877	 Linear cost: 709978
+Rep 4: Outputs are equal	 DPU cost: 369877	 Linear cost: 709978
+Rep 5: Outputs are equal	 DPU cost: 369877	 Linear cost: 690013
 
 
 Tempi medi:
-CPU-DPU: 0.725000(ms)	DPU Kernel: 16128.680200(ms)	DPU-CPU e centri finali: 0.101200(ms)	CPU: 23.034200(ms)
+CPU-DPU: 0.356000(ms)	DPU Kernel: 142.223600(ms)	DPU-CPU e centri finali: 0.093600(ms)	CPU: 0.201400(ms)
 
 Centri finali:
-Centro: 0 [453, 312, 499, -412]
-Centro: 1 [-486, -438, -476, 498]
-Centro: 2 [-494, 497, -420, -451]
+Centro: 0 [-77, 285]
+Centro: 1 [490, -500]
+Centro: 2 [-498, -499]
 
 --------------------------------------------------
 
-Allocated 45 DPU(s)
+Allocated 43 DPU(s)
 NR_TASKLETS 24 BLOCK_LENGTH 128
 Centers -k 3
-Dataset path: /home/deid/tesi/PIM-Clustering/DS/dataset/int/100k/int_4.csv
+Dataset path: /home/deid/tesi/PIM-Clustering/DS/dataset/int/int_vise/int-small.csv
 
-Rep 0: Outputs are equal	 DPU cost: 1430568	 Linear cost: 1404722
-Rep 1: Outputs are equal	 DPU cost: 1170659	 Linear cost: 1320933
-Rep 2: Outputs are equal	 DPU cost: 1738570	 Linear cost: 1521859
-Rep 3: Outputs are equal	 DPU cost: 1546153	 Linear cost: 1478198
-Rep 4: Outputs are equal	 DPU cost: 1631772	 Linear cost: 1543983
-Rep 5: Outputs are equal	 DPU cost: 1455423	 Linear cost: 1501470
+Rep 0: Outputs are equal	 DPU cost: 708041	 Linear cost: 690013
+Rep 1: Outputs are equal	 DPU cost: 912425	 Linear cost: 606505
+Rep 2: Outputs are equal	 DPU cost: 912425	 Linear cost: 606505
+Rep 3: Outputs are equal	 DPU cost: 912425	 Linear cost: 606505
+Rep 4: Outputs are equal	 DPU cost: 583700	 Linear cost: 369410
+Rep 5: Outputs are equal	 DPU cost: 583700	 Linear cost: 369410
 
 
 Tempi medi:
-CPU-DPU: 0.702800(ms)	DPU Kernel: 16045.262400(ms)	DPU-CPU e centri finali: 0.169800(ms)	CPU: 23.130600(ms)
+CPU-DPU: 0.412000(ms)	DPU Kernel: 190.677800(ms)	DPU-CPU e centri finali: 0.126400(ms)	CPU: 0.291600(ms)
 
 Centri finali:
-Centro: 0 [84, 428, 237, -5]
-Centro: 1 [-488, -484, -464, 435]
-Centro: 2 [457, -488, -400, -469]
+Centro: 0 [242, -309]
+Centro: 1 [-499, 500]
+Centro: 2 [486, 497]
 
 --------------------------------------------------
 
 Allocated 50 DPU(s)
 NR_TASKLETS 24 BLOCK_LENGTH 128
 Centers -k 3
-Dataset path: /home/deid/tesi/PIM-Clustering/DS/dataset/int/100k/int_4.csv
+Dataset path: /home/deid/tesi/PIM-Clustering/DS/dataset/int/int_vise/int-small.csv
 
-Rep 0: Outputs are equal	 DPU cost: 1216530	 Linear cost: 1752690
-Rep 1: Outputs are equal	 DPU cost: 1335086	 Linear cost: 1818547
-Rep 2: Outputs are equal	 DPU cost: 1195497	 Linear cost: 1427908
-Rep 3: Outputs are equal	 DPU cost: 1434950	 Linear cost: 1633882
-Rep 4: Outputs are equal	 DPU cost: 1379023	 Linear cost: 1614294
-Rep 5: Outputs are equal	 DPU cost: 1281104	 Linear cost: 1764597
+Rep 0: Outputs are equal	 DPU cost: 402241	 Linear cost: 826281
+Rep 1: Outputs are equal	 DPU cost: 402241	 Linear cost: 826281
+Rep 2: Outputs are equal	 DPU cost: 386920	 Linear cost: 449600
+Rep 3: Outputs are equal	 DPU cost: 386920	 Linear cost: 449600
+Rep 4: Outputs are equal	 DPU cost: 386920	 Linear cost: 449600
+Rep 5: Outputs are equal	 DPU cost: 565370	 Linear cost: 390458
 
 
 Tempi medi:
-CPU-DPU: 0.752000(ms)	DPU Kernel: 16247.511800(ms)	DPU-CPU e centri finali: 0.159600(ms)	CPU: 22.925800(ms)
+CPU-DPU: 0.490400(ms)	DPU Kernel: 192.464200(ms)	DPU-CPU e centri finali: 0.153400(ms)	CPU: 0.290800(ms)
 
 Centri finali:
-Centro: 0 [187, -293, 188, 99]
-Centro: 1 [-489, 500, -480, -451]
-Centro: 2 [-499, 478, 335, 495]
+Centro: 0 [-239, -444]
+Centro: 1 [496, 484]
+Centro: 2 [-499, 500]
 
 --------------------------------------------------
 
 Allocated 55 DPU(s)
 NR_TASKLETS 24 BLOCK_LENGTH 128
 Centers -k 3
-Dataset path: /home/deid/tesi/PIM-Clustering/DS/dataset/int/100k/int_4.csv
+Dataset path: /home/deid/tesi/PIM-Clustering/DS/dataset/int/int_vise/int-small.csv
 
-Rep 0: Outputs are equal	 DPU cost: 1537470	 Linear cost: 1454074
-Rep 1: Outputs are equal	 DPU cost: 1624361	 Linear cost: 1620767
-Rep 2: Outputs are equal	 DPU cost: 1669053	 Linear cost: 1464766
-Rep 3: Outputs are equal	 DPU cost: 1188235	 Linear cost: 1692961
-Rep 4: Outputs are equal	 DPU cost: 1368468	 Linear cost: 1233414
-Rep 5: Outputs are equal	 DPU cost: 1285878	 Linear cost: 1232986
+Rep 0: Outputs are equal	 DPU cost: 451377	 Linear cost: 388193
+Rep 1: Outputs are equal	 DPU cost: 451377	 Linear cost: 388193
+Rep 2: Outputs are equal	 DPU cost: 425124	 Linear cost: 776645
+Rep 3: Outputs are equal	 DPU cost: 425124	 Linear cost: 776645
+Rep 4: Outputs are equal	 DPU cost: 425124	 Linear cost: 776645
+Rep 5: Outputs are equal	 DPU cost: 489393	 Linear cost: 566948
 
 
 Tempi medi:
-CPU-DPU: 0.731800(ms)	DPU Kernel: 16071.267800(ms)	DPU-CPU e centri finali: 0.181600(ms)	CPU: 23.228600(ms)
+CPU-DPU: 0.514600(ms)	DPU Kernel: 203.479200(ms)	DPU-CPU e centri finali: 0.158800(ms)	CPU: 0.307000(ms)
 
 Centri finali:
-Centro: 0 [123, -299, -57, -345]
-Centro: 1 [-494, 473, 440, 463]
-Centro: 2 [459, 501, -427, 499]
+Centro: 0 [188, 368]
+Centro: 1 [-487, -492]
+Centro: 2 [499, -494]
 
 --------------------------------------------------
 
 Allocated 64 DPU(s)
 NR_TASKLETS 24 BLOCK_LENGTH 128
 Centers -k 3
-Dataset path: /home/deid/tesi/PIM-Clustering/DS/dataset/int/100k/int_4.csv
+Dataset path: /home/deid/tesi/PIM-Clustering/DS/dataset/int/int_vise/int-small.csv
 
-Rep 0: Outputs are equal	 DPU cost: 1475445	 Linear cost: 1691278
-Rep 1: Outputs are equal	 DPU cost: 1385902	 Linear cost: 1561283
-Rep 2: Outputs are equal	 DPU cost: 1624543	 Linear cost: 1617106
-Rep 3: Outputs are equal	 DPU cost: 1200699	 Linear cost: 1520743
-Rep 4: Outputs are equal	 DPU cost: 1297060	 Linear cost: 1820409
-Rep 5: Outputs are equal	 DPU cost: 1454113	 Linear cost: 1499057
+Rep 0: Outputs are equal	 DPU cost: 416457	 Linear cost: 436922
+Rep 1: Outputs are equal	 DPU cost: 416457	 Linear cost: 436922
+Rep 2: Outputs are equal	 DPU cost: 416457	 Linear cost: 436922
+Rep 3: Outputs are equal	 DPU cost: 565513	 Linear cost: 720277
+Rep 4: Outputs are equal	 DPU cost: 565513	 Linear cost: 720277
+Rep 5: Outputs are equal	 DPU cost: 401960	 Linear cost: 549896
 
 
 Tempi medi:
-CPU-DPU: 0.826600(ms)	DPU Kernel: 15992.291000(ms)	DPU-CPU e centri finali: 0.230400(ms)	CPU: 23.965600(ms)
+CPU-DPU: 0.551200(ms)	DPU Kernel: 197.902200(ms)	DPU-CPU e centri finali: 0.188200(ms)	CPU: 0.301600(ms)
 
 Centri finali:
-Centro: 0 [160, -14, 174, -361]
-Centro: 1 [-431, 462, -487, 478]
-Centro: 2 [-482, -492, 500, 485]
+Centro: 0 [-436, 73]
+Centro: 1 [489, -500]
+Centro: 2 [462, 498]
 
 --------------------------------------------------
 
 CPU-DPU
 
-0.6568	0.725	0.7028	0.752	0.7318	0.8266	
+0.3072	0.356	0.412	0.4904	0.5146	0.5512	
 --------------------------------------------------
 
 DPU-Kernel
 
-16120.1552	16128.6802	16045.2624	16247.5118	16071.2678	15992.291	
+144.5252	142.2236	190.6778	192.4642	203.4792	197.9022	
 --------------------------------------------------
 
 DPU-CPU e centri finali
 
-0.1136	0.1012	0.1698	0.1596	0.1816	0.2304	
+0.0846	0.0936	0.1264	0.1534	0.1588	0.1882	
+--------------------------------------------------
+
+Tempo totale
+
+0.2368	0.2014	0.2916	0.2908	0.307	0.3016	
 --------------------------------------------------
 
 CPU
 
-22.906	23.0342	23.1306	22.9258	23.2286	23.9656	
+0.2368	0.2014	0.2916	0.2908	0.307	0.3016	
 --------------------------------------------------
 

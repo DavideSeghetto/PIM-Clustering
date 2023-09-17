@@ -2,14 +2,6 @@
 #define _COMMON_H
 
     //Definisco i vari tipi.
-    /*#ifdef UINT32
-    #define T uint32_t
-    #define T_SHIFT 2
-    #define D uint64_t
-    #elif UINT64
-    #define T uint64_t
-    #define T_SHIFT 3
-    #define D uint64_t*/
     #ifdef INT32
     #define T int32_t
     #define T_SHIFT 2
@@ -45,7 +37,7 @@
         return base * base;
     }
 
-    //Ritorna il multiplo di point_dim più vicino ad BLOCK_SIZE e divisibile per 8.
+    //Ritorna il multiplo di point_dim più vicino a BLOCK_SIZE e divisibile per 8.
     uint32_t get_block_size(uint32_t point_dim) {
 
         if ((BLOCK_SIZE % point_dim) == 0) {
@@ -54,6 +46,7 @@
 
         uint32_t lcm = (point_dim > 8) ? point_dim : 8;
 
+        //Calcolo il minimo comune multiplo tra 8 e la dimensione dei punti
         while (true) {
             if ((lcm % 8 == 0) && (lcm % point_dim == 0)) break;
 
@@ -64,7 +57,6 @@
 
         return lcm;
     }
-
 
     //Funzioni adattate al tipo run time.
     #if defined FLOAT

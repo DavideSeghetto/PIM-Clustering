@@ -31,7 +31,7 @@ static D get_furthest_point(T* buffer, uint32_t n_points, uint32_t dim, T* candi
             D dist = 0;
         
             for (unsigned int k = 0; k < dim; k++) {
-                dist += distance(buffer[point_index+k], centers_set[center_index+k]); //TODO: non gestisce overflow.
+                dist += distance(buffer[point_index+k], centers_set[center_index+k]);
             }
 
             min_center_dist = (dist < min_center_dist) ? dist : min_center_dist;
@@ -60,9 +60,10 @@ int main() {
 
     if (tasklet_id == 0) {        
         mem_reset();
-        centers_set = (T*) mem_alloc((n_centers*dim) << T_SHIFT);
+        centers_set = (T*) mem_alloc((n_centers*dim) << T_SHIFT); //centers_set è il puntatore al buffer in WRAM
 
         //Il primo punto è scelto come primo centro.
+        //Leggo i dati dalla MRAM e li salvo nella WRAM all'indirizzo specificato dal secondo parametro. L'ultimo parametro è il numero di byte da trasferire
         mram_read(DPU_MRAM_HEAP_POINTER + first_offset, centers_set, roundup((dim << T_SHIFT), 8));
 
         //Resetto varibili globali.
@@ -146,7 +147,9 @@ int main() {
 
     //Carico i centri calcolati in MRAM.
     if (tasklet_id == 0) {
-        mram_write(centers_set, DPU_MRAM_HEAP_POINTER + dpu_mem_size, roundup(((n_centers*dim) << T_SHIFT), 8)); //TODO: mram_write può caricare 2048 bytes al massimo.        
+        //TODO: mram_write può caricare 2048 bytes al massimo.
+        //NON È UN PROBLEMA CHE SI PUÒ RISOLVERE, È DEFINITO COSÌ DALLA RUNTIME LIBRARY DI UPMEM
+        mram_write(centers_set, DPU_MRAM_HEAP_POINTER + dpu_mem_size, roundup(((n_centers*dim) << T_SHIFT), 8));       
         
         //Resetto barriere per prossime esecuzioni.
         my_barrier_1.count = NR_TASKLETS;

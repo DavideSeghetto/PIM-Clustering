@@ -34,7 +34,7 @@ I risultati di ogni test sono riportati nella cartella ```/profile``` creata qua
 # TODO
 I problemi noti/elementi da rivedere sono segnalati nel codice con un conmmento ```//TODO: ...```<br>
 I principali problemi noti al momento sono:
-+ Implementazione della funzione che calcola la distanza tra i vari punti: dataset contenenti punti con valori e/o dimensione elevati generano overflow usando la distanza di Minkowski. Al momento questo problema viene evitato limitando la dimensione massima ad 5 e il valore massimo di ogni punto ad 1000.
++ ~~Implementazione della funzione che calcola la distanza tra i vari punti: dataset contenenti punti con valori e/o dimensione elevati generano overflow usando la distanza di Minkowski. Al momento questo problema viene evitato limitando la dimensione massima ad 5 e il valore massimo di ogni punto ad 1000.~~
 + Sistema di verifica dei risultati genera "falsi negativi": nel caso in cui più centri candidati avessero la stessa distanza minima, l'host e le DPU potrebbero restituire risultati diversi (anche se matematicamente analoghi). Questo è particolarmente evidente quando la dimensione è pari ad 1 ed il numero di collisione è elevato.
 + ~~Gestione di un'undefined behavior nel file ```app.c``` (commento riga 154).~~
 + ~~Mancato utilizzo di dataset esterni per verificare l'effettiva correttezza dell'algoritmo.~~

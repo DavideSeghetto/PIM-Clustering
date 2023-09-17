@@ -107,7 +107,7 @@ static void get_centers(T* point_buffer, T* centers_buffer, uint32_t n_points, u
             
                 for (unsigned int k = 0; k < dim; k++) {
                     //CALCOLO DISTANZA TRA DUE PUNTI. IL FATTO DI AVER MODIFICATO IL CALCOLO DELLA DISTANZA MI PERTMETTE DI AVERE DATASET CON DIMENSIONI MOLTO PIÙ GRANDI
-                    dist += distance(point_buffer[point_index+k], centers_buffer[center_index+k]); //TODO: non gestisce overflow.
+                    dist += distance(point_buffer[point_index+k], centers_buffer[center_index+k]);
                 }
 
                 min_center_dist = (dist < min_center_dist) ? dist : min_center_dist;
@@ -199,7 +199,7 @@ int main(int argc, char **argv) {
     //Suddivisione punti per ogni DPU.
     //La dimensione del blocco assegnato ad ogni DPU deve essere allineata su 8 bytes.
     uint32_t points_per_dpu = p.n_points/NR_DPUS;
-    uint32_t points_per_last_dpu = p.n_points-points_per_dpu*(NR_DPUS-1);
+    uint32_t points_per_last_dpu = p.n_points-points_per_dpu*(NR_DPUS-1); //se n.points non è multiplo di NR_DPUS l'ultima avrà più punti
     uint32_t mem_block_per_dpu = points_per_last_dpu*p.dim;
     uint32_t mem_block_per_dpu_8bytes = ((mem_block_per_dpu*sizeof(T) % 8) == 0) ? mem_block_per_dpu : roundup(mem_block_per_dpu, 8);
 
@@ -245,9 +245,10 @@ int main(int argc, char **argv) {
             input_arguments[i].first_center_offset = offset*sizeof(T);
         }
 
-        //Cronometro caricamento dati CPU-DPU.
+        //Cronometro caricamento dati CPU-DPU e tempo total.
         if (rep >= p.n_warmup) {
             start(&timer, 0, rep - p.n_warmup);
+            start(&timer, 4, rep - p.n_warmup);
         }
 
         //Carico il programma per calcolare i centri.
@@ -303,10 +304,11 @@ int main(int argc, char **argv) {
         //Calcolo i centri finali partendo dai centri trovati dalle DPU.
         get_centers(R, C, p.n_centers*NR_DPUS, p.n_centers, p.dim, 0);
 
-        //Stop timer trasferimento DPU-CPU e calcolo centri finali.
+        //Stop timer trasferimento DPU-CPU e calcolo centri finali e tempo totale.
         //Cronometro esecuzione algoritmo su host.
         if (rep >= p.n_warmup) {
             stop(&timer, 2);
+            stop(&timer, 4);
             start(&timer, 3, rep - p.n_warmup);
         }
 

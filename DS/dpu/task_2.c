@@ -29,7 +29,7 @@ static D get_max_distance(T* buffer, uint32_t n_points, uint32_t n_centers, uint
             D dist = 0;
         
             for (unsigned int k = 0; k < dim; k++) {
-                dist += distance(buffer[point_index+k], centers_set[center_index+k]); //TODO: non gestisce overflow.
+                dist += distance(buffer[point_index+k], centers_set[center_index+k]);
             }
 
             min_center_dist = (dist < min_center_dist) ? dist : min_center_dist;
