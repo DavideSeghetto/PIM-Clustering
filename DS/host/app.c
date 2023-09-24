@@ -261,6 +261,12 @@ int main(int argc, char **argv) {
         }
         DPU_ASSERT(dpu_push_xfer(dpu_set, DPU_XFER_TO_DPU, "DPU_INPUT_ARGUMENTS", 0, sizeof(input_arguments[0]), DPU_XFER_DEFAULT));
         
+        //Stop timer CPU-DPU
+        //Cronometro tempo esecuzione nelle DPU.
+        if (rep >= p.n_warmup) {
+            stop(&timer, 0);
+            start(&timer, 1, rep - p.n_warmup);
+        }
         //Carico l'insieme di punti per ogni DPU.
         i = 0;
         DPU_FOREACH(dpu_set, dpu, i) {
@@ -268,12 +274,6 @@ int main(int argc, char **argv) {
         }
         DPU_ASSERT(dpu_push_xfer(dpu_set, DPU_XFER_TO_DPU, DPU_MRAM_HEAP_POINTER_NAME, 0, mem_block_per_dpu_8bytes*sizeof(T), DPU_XFER_DEFAULT));
 
-        //Stop timer CPU-DPU
-        //Cronometro tempo esecuzione nelle DPU.
-        if (rep >= p.n_warmup) {
-            stop(&timer, 0);
-            start(&timer, 1, rep - p.n_warmup);
-        }
 
         //Avvio l'esecuzione delle DPU.
         DPU_ASSERT(dpu_launch(dpu_set, DPU_SYNCHRONOUS));
@@ -385,6 +385,8 @@ int main(int argc, char **argv) {
     print(&timer, 1, p.n_reps);
     printf("\tDPU-CPU e centri finali: ");
     print(&timer, 2, p.n_reps);
+    printf("\tTempo totale: ");
+    print(&timer, 4, p.n_reps);
     printf("\tCPU: ");
     print(&timer, 3, p.n_reps);
 

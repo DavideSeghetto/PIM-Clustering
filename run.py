@@ -2,8 +2,7 @@ import os
 import sys
 import random
 import re
-#import matplotlib.pyplot as plt
-#from matplotlib.ticker import FormatStrFormatter
+
 
 rootdir = "/home/deid/tesi/PIM-Clustering" #Path della repo "Clustering" sul dispositivo
 #rootdir = "/home/upmem0013/lasquini/Davide_Seghetto/PIM-Clustering" #Path della repo "Clustering" sul dispositivo
@@ -88,9 +87,9 @@ def run_app(app_name, run_type):
             os.system(run_cmd_print)
 
 
-NR_DPUS = [33, 40, 43, 50, 55, 64]
+#NR_DPUS = [33, 40, 43, 50, 55, 64]
 #NR_DPUS = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1500, 2000]
-#NR_DPUS = [64]
+NR_DPUS = [64]
 NR_TASKLETS = [24]
 #NR_TASKLETS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 18, 20, 22, 24]
 BLOCK_LENGTH = ["128"]
@@ -175,7 +174,7 @@ def main():
                         dpu_kernel.append(float(lista[1]))  
                         dpu_cpu_and.append(float(lista[2]))
                         totale.append(float(lista[3]))
-                        cpu.append(float(lista[3]))
+                        cpu.append(float(lista[4]))
         
         with open ("/home/deid/tesi/PIM-Clustering/DS/profile/ds_results.txt", "a") as file:
         #with open ("/home/upmem0013/lasquini/Davide_Seghetto/PIM-Clustering/DS/profile/ds_results.txt, "a") as file:
