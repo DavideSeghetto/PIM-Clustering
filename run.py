@@ -5,10 +5,6 @@ import re
 
 
 rootdir = "/home/deid/tesi/PIM-Clustering" #Path della repo "Clustering" sul dispositivo
-#rootdir = "/home/upmem0013/lasquini/Davide_Seghetto/PIM-Clustering" #Path della repo "Clustering" sul dispositivo
-
-#FAI UNO STUDIO PER VEDERE SE C'È VERAMENTE UN VATAGGIO PRESTAZIONALE A FARE STA ROBA CON LE DPU
-#RICORDA DI MODIFICARE -r SE C'È BISOGNO
 
 #-B in makefile è usata per forzare la ricompilazione di tutti i target a prescindere che siano stati modificati o meno dall'ultima compilazione
 # w = warmpup   e = executions    p = dataset path    n = # of points    k = # number of centers    d = dimension of points   r if first point random
@@ -33,10 +29,8 @@ def run_app(app_name, run_type):
             print(t)
         return
         
-    #NR_DPUS = [1, 4, 16, 64]
-    NR_DPUS = [64]
-    #NR_TASKLETS = [1, 2, 4, 8, 16]
-    NR_TASKLETS = [16]
+    NR_DPUS = [1, 4, 16, 64]
+    NR_TASKLETS = [1, 2, 4, 8, 16]
     BLOCK_LENGTH = ["1024", "512", "256", "128", "64"]
 
     make_cmd = applications[app_name][0]
@@ -87,13 +81,9 @@ def run_app(app_name, run_type):
             os.system(run_cmd_print)
 
 
-#NR_DPUS = [33, 40, 43, 50, 55, 64]
-#NR_DPUS = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1500, 2000]
-NR_DPUS = [64]
+NR_DPUS = [1, 2, 5, 10, 15, 20, 30, 40, 50, 55, 64]
 NR_TASKLETS = [24]
-#NR_TASKLETS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 18, 20, 22, 24]
 BLOCK_LENGTH = ["128"]
-#BLOCK_LENGTH = ["1", "5", "10", "50", "100", "128"]
 
 def run_ds(ds, run_type, centers):
     if (run_type not in types):
@@ -165,7 +155,6 @@ def main():
         pattern_data = re.compile(r"\d+[.]\d+")
 
         with open ("/home/deid/tesi/PIM-Clustering/DS/profile/ds_results.txt") as file:
-        #with open ("/home/upmem0013/lasquini/Davide_Seghetto/PIM-Clustering/DS/profile/ds_results.txt") as file:    
             for line in file:
                 if pattern_line.search(line) != None:
                     lista = pattern_data.findall(line)
@@ -177,7 +166,6 @@ def main():
                         cpu.append(float(lista[4]))
         
         with open ("/home/deid/tesi/PIM-Clustering/DS/profile/ds_results.txt", "a") as file:
-        #with open ("/home/upmem0013/lasquini/Davide_Seghetto/PIM-Clustering/DS/profile/ds_results.txt, "a") as file:
             file.write("CPU-DPU\n")
             i = 0
             for data in cpu_dpu:

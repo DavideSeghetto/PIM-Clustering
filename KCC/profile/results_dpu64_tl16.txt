@@ -1,4 +1,0 @@
-Allocated 64 DPU(s)
-NR_TASKLETS 16 BLOCK_LENGTH 1024
-Params: -n 1268 -k 15 -d 7
-

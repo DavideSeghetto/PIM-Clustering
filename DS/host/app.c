@@ -18,34 +18,25 @@
 /*FARTHEST FIRST TRAVERSAL ALGORITHM
 L'input è l'insieme P di N punti da uno spazio metrico (M, d) e un intero k >= 1. L'output invece è un insieme S di k centri che è una buona soluzione per il
 problema del k center. L'algoritmo inizia scegliendo un punto arbitrario dal dataset come primo centro. Da questo scelgo il punto più lontano che sarà il mio secondo
-centro. Da ora in avanti scelgo come centro il punto con distanza maggiore dai centri già scelti (vedi slide 48) finchè i centri non sono k.
-L'algoritmo aumenta di un fattore due la soluzione ottima per il problema del k center clustering. RICORDA DI SCRIVERE NELLA TESI che la fft è molto sensibile a 
-dataset con rumore (OUTLIERS). La FFT richiede k - 1 scan del dataset P: impraticabile per P massivi e k non piccoli. Come possiamo quindi dare una buona soluzione
-al problema del k center quando abbiamo un dataset troppo grande per una singola macchina? Utilizziamo la composable coreset techinque. Suddividiamo il dataset in
-l coreset e a ciascuno applichiamo la FFT. Da ciascun coreset ottengo k centri. Li riunisco tutti in un sottoinsieme T (con l per k punti) di P al quale applico
-per l'ultima volta la FFT. Versione di FFT nota come MapReduce FFT. Tale versione aumenta di un fattore 4 la soluzione ottima del problema k center. La MRFFT la si
-dovrebbe usare su massivi dataset*/
+centro. Da ora in avanti scelgo come centro il punto con distanza maggiore dai centri già scelti finchè i centri non sono k.
+L'algoritmo aumenta di un fattore due la soluzione ottima per il problema del k center clustering. La FFT richiede k - 1 scan del dataset P: impraticabile per P massivi e
+k non piccoli. Come possiamo quindi dare una buona soluzione al problema del k center quando abbiamo un dataset troppo grande per una singola macchina?
+Utilizziamo la composable coreset techinque. Suddividiamo il dataset in l coreset e a ciascuno applichiamo la FFT. Da ciascun coreset ottengo k centri.
+Li riunisco tutti in un sottoinsieme T (con l per k punti) di P al quale applico per l'ultima volta la FFT. Versione di FFT nota come MapReduce FFT.
+Tale versione aumenta di un fattore 4 la soluzione ottima del problema k center. La MRFFT la si dovrebbe usare su massivi dataset*/
 
 /*Il k-center clustering è un problema di ottimizzazione. La soluzione è un sottoinsieme dell'intero dataset, che contiene k punti corrispondenti ai vari centri
-L'obiettivo dell'algoritmo è minimizzare la distanza massima tra un punto appartenente ad un cluster e il centro di quel cluster
-Il programma consiste in un dataset al quale viene applicato l'algoritmo k center clustering. Per dataset di grandi dimensioni suddivido il dataset tra le DPU e su ciascuna
-applico l'algoritmo. Sulla CPU faccio la stessa cosa per un controllo di velocità e inoltre applico l'algoritmo all'intero dataset senza spezzettarlo.
+L'obiettivo dell'algoritmo è minimizzare la distanza massima tra un punto appartenente ad un cluster e il centro di quel cluster.
+
 Descrizione dei risultati ottenuti:
 -) DPU cost: costo dell'algoritmo spezzettando il dataset
 -) Linear cost: costo dell'algoritmo facendolo linearmente sulla CPU
-L'approccio lineare, ossia senza spezzettare il dataset deve avere un costo minore, deve essere cioè più preciso perchè appunto non applico "approssimazioni" al dataset 
-(spezzettamenti). Il problema è NP Hard (ricontrolla questa terminologia), quindi si può risolvere solo in un tempo esponenziale. L'algoritmo lineare K center clustering
-è quindi un'approssimazione. Se ad esempio il risultato ottimo del problema è 15, l'approccio lineare mi darà nel migliore dei casi un risultato pari a 30. Quindi
-la correttezza diminuisce di un fattore 2. Mentre con l'approccio fft (spezzettato) la correttezza diminuisce di un fattore 4 (arrivo nel migliore dei casi a 60).
-In sostanza il costo, più piccolo è meglio è. Il costo dell'algoritmo è la distanza più grande di un punto dal suo centro (spiegazione minuto 39 - 40 audio).
 -) CPU-DPU è il tempo di caricamento dei dati nelle DPU
 -) DPU Kernel è il tempo di esecuzione dell'algoritmo spezzettato nelle DPU
 -) DPU - CPU e centri finali è il tempo di spostamento dei centri calcolati nelle DPU alla CPU e il calcolo dell'ultima passata nella CPU per il calcolo finale dei centri
 Il tempo totale dell'algoritmo spezzettato (che quindi include il caricamento dei dati nelle DPU, l'esecuzione nelle varie DPU, lo spostamento dei centri intermedi nella CPU
 e l'esecuzione dell'ultima passata nella CPU) è la somma di questi tre tempi
--) CPU invece è il tempo per fare l'algoritmo sempre con spezzettamento ma nella CPU (ovviamente stessi parametri, stesso dataset, stesse partizioni)
-Il tempo di esecuzione dell'algoritmo completo senza spezzettamento nella CPU non è calcolato, si potrebbe aggiungere se utile
-Outputs are equal mi indica che l'algoritmo runnato sulle DPU e quello runnato sulle CPU ha dato lo stesso risultato, ovvero gli stessi centri*/
+-) CPU invece è il tempo per fare l'algoritmo sempre con spezzettamento ma nella CPU (ovviamente stessi parametri, stesso dataset, stesse partizioni)*/
 
 //Buffer contenente tutti i punti.
 static T* P; 
@@ -106,7 +97,6 @@ static void get_centers(T* point_buffer, T* centers_buffer, uint32_t n_points, u
                 D dist = 0;
             
                 for (unsigned int k = 0; k < dim; k++) {
-                    //CALCOLO DISTANZA TRA DUE PUNTI. IL FATTO DI AVER MODIFICATO IL CALCOLO DELLA DISTANZA MI PERTMETTE DI AVERE DATASET CON DIMENSIONI MOLTO PIÙ GRANDI
                     dist += distance(point_buffer[point_index+k], centers_buffer[center_index+k]);
                 }
 
@@ -126,8 +116,7 @@ static void get_centers(T* point_buffer, T* centers_buffer, uint32_t n_points, u
 
 }
 
-//Esecuzione dell'algoritmo spezzettato solo sulla CPU. NON CALCOLO IL COSTO PERCHÈ SE RESTITUISCE GLI STESSI CENTRI CHE RESTITUISCONO LE DPU IL COSTO È UGUALE A QUELLO 
-//CALCOLATO DALLE DPU
+//Esecuzione dell'algoritmo MRFFT solo sulla CPU.
 //Calcola i centri, partendo dagli stessi sottoinsiemi di punti assegnati alle DPU.
 static void k_clustering_host(uint32_t n_point_dpu, uint32_t n_points_last_dpu, uint32_t n_centers, uint32_t dim, uint32_t first_offset) {
 
@@ -145,11 +134,11 @@ static void k_clustering_host(uint32_t n_point_dpu, uint32_t n_points_last_dpu, 
     //CALCOLO DEI CENTRI DALL'ULTIMO INSIEME DI PUNTI CHE POTREBBE AVERE PARAMETRI DIVERSI NEL CASO IN CUI IL NUMERO DI PUNTI NON SIA MULTIPLO DEL NUMERO DI DPU
     get_centers(P + points_offset, M + centers_set_offset, n_points_last_dpu, n_centers, dim, first_offset);
     
-    //Calcolo i centri finali (ULTIMA PASSATA)
+    //Calcolo i centri finali
     get_centers(M, H, n_centers*NR_DPUS, n_centers, dim, 0);
 }
 
-//Calcola il costo del clustering effettuato linearmente su tutti i punti. EFFETTUA L'ALGORITMO SENZA SPEZZETTAMENTO E CALCOLO IL COSTO
+//Calcola il costo del clustering effettuato linearmente su tutti i punti.
 static D get_linear_cost(uint32_t n_points, uint32_t n_centers, uint32_t dim, uint32_t first_offset) {
     
     T centers_set[n_centers*dim];
@@ -168,9 +157,7 @@ static D get_linear_cost(uint32_t n_points, uint32_t n_centers, uint32_t dim, ui
         
             for (unsigned int k = 0; k < dim; k++) {
                 temp = distance(P[point_index+k], centers_set[center_index+k]);
-                //dist += distance(P[point_index+k], centers_set[center_index+k]); //TODO: non gestisce overflow.
-                dist += temp; //Non faccio la radice perchè tanto comunque se la volessi fare il programma dovrebbe arrivare a tale numero e di conseguenza se va in segfault
-                              //senza radice ci va anche con.
+                dist += temp;
             }
             
             min_center_dist = (dist < min_center_dist) ? dist : min_center_dist;
@@ -245,7 +232,7 @@ int main(int argc, char **argv) {
             input_arguments[i].first_center_offset = offset*sizeof(T);
         }
 
-        //Cronometro caricamento dati CPU-DPU e tempo total.
+        //Cronometro caricamento dati CPU-DPU e tempo totale.
         if (rep >= p.n_warmup) {
             start(&timer, 0, rep - p.n_warmup);
             start(&timer, 4, rep - p.n_warmup);
@@ -320,7 +307,7 @@ int main(int argc, char **argv) {
             stop(&timer, 3);
         }
         
-        //DA QUI IN POI INIZIO IL CALCOLO DEL COSTO DEL CLUSTERING CON SPEZZETTAMENTO SU DPU
+        //DA QUI IN POI INIZIO IL CALCOLO DEL COSTO DEL CLUSTERING CON MRFFT SU DPU
 
         //Carico il programma per calcolare il costo del clustering.
         DPU_ASSERT(dpu_load(dpu_set, DPU_BINARY2, NULL));
@@ -336,8 +323,7 @@ int main(int argc, char **argv) {
         i = 0;
         uint32_t center_set_size = (p.n_centers*p.dim*sizeof(T) % 8) == 0 ? p.n_centers*p.dim*sizeof(T) : roundup(p.n_centers*p.dim*sizeof(T), 8);
         DPU_FOREACH(dpu_set, dpu, i) {
-            //LA COSA INTERESSANTE È CHE OGNI DPU HA ANCORA IN MEMORIA LA SUA PARTIZIONI DI P QUINDI ADESSO BASTA CHE PASSO C E CIASCUNA DPU PUÒ QUINDI FARE IL COSTO
-            DPU_ASSERT(dpu_prepare_xfer(dpu, C)); //PRIMA PASSAVO PORZIONE DI P ORA PASSO C PERCHÈ HO GIÀ CALCOLATO I CENTRI MEMORIZZATI C (audio 1:27:00)
+            DPU_ASSERT(dpu_prepare_xfer(dpu, C));
         }
         DPU_ASSERT(dpu_push_xfer(dpu_set, DPU_XFER_TO_DPU, DPU_MRAM_HEAP_POINTER_NAME, dpu_center_set_addr, center_set_size, DPU_XFER_DEFAULT));
         
@@ -377,7 +363,7 @@ int main(int argc, char **argv) {
         print_res(status, rep, dpu_cost, cpu_cost);
     }
 
-    //Stampo media tempi di esecuzione (vengono messi nel file e non a video perchè nel file python uso >>)
+    //Stampo media tempi di esecuzione
     printf("\n\nTempi medi:\n");
     printf("CPU-DPU: ");
     print(&timer, 0, p.n_reps);
