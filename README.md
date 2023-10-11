@@ -29,6 +29,6 @@ Per eseguire il programma da terminale:
    ```
    + su un database di punti già esistente eseguire lo script come indicato a seguire:
     ```
-   python3 run.py DB 'full-path-to-db' 'type of dataset' '# of centers to extract'
+   python3 run.py DS 'full-path-to-db' 'type of dataset' '# of centers to extract'
    ```
    Il database in questione deve contenere un punto per ogni riga, con cordinate separate da virgole. Sono supportati valori di tipo ```float```.
