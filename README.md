@@ -22,12 +22,12 @@ Per eseguire il programma da terminale:
 # Note sul codice
 
 La struttura generale del codice segue le linee guide indicate nei [benchmark](https://github.com/CMU-SAFARI/prim-benchmarks) prodotti da SAFARI Research Group.<br>
-La cartella host contiene il codice eseguito nella CPU centrale mentre la cartella dpu contiene il codice che verrebbe eseguito nelle memorie.
+La cartella host contiene il codice eseguito nella CPU centrale mentre la cartella dpu contiene il codice che viene eseguito nelle memorie.
 
-Il programma esegue l'applicazione specificata (al momento ho implementato solo k-center con coreset) su un dataset di punti. Il valore dei vari punti, la loro dimensione ed il numero di centri da estrarre sono generati automaticamente.<br>
+Il programma esegue un algoritmo di risoluzione per il problema del k-center clusteringc su un dataset di punti. Il valore dei vari punti, la loro dimensione ed il numero di centri da estrarre sono generati automaticamente.<br>
 I centri vengono calcolati sia dalle DPU che dall'host application così da poter verificare la correttezza dei valori ottenuti. 
 
-Per ogni applicazione vengono effettuati vari test istanziando un diverso numero di DPU e di tasklets.<br>
+Vengono effettuati vari test istanziando un diverso numero di DPU e di tasklets.<br>
 I risultati di ogni test sono riportati nella cartella ```/profile``` creata quando si esegue per la prima volta un'applicazione.
 
 
