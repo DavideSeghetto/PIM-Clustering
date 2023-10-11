@@ -1,3 +1,17 @@
+# Note sul codice
+
+Il programma esegue l'algoritmo di Map Reduce Farthest-First Traversal per la risoluzione del problema del k-center clustering su un dataset di punti. È possibile scegliere tra due modalità di esecuzione
+1. ```KCC```: il valore dei vari punti, la loro dimensione ed il numero di centri da estrarre sono generati automaticamente.<br>
+2. ```DS```: il dataset da utilizzare e il numero di centri da estrarre viene passato da riga di comando.
+I centri vengono calcolati sia dalle DPU che dall'host application così da poter verificare la correttezza dei valori ottenuti.
+
+La struttura generale del codice segue le linee guide indicate nei [benchmark](https://github.com/CMU-SAFARI/prim-benchmarks) prodotti da SAFARI Research Group.<br>
+La cartella host contiene il codice eseguito nella CPU centrale mentre la cartella dpu contiene il codice che viene eseguito nelle memorie.  
+
+Vengono effettuati vari test istanziando un diverso numero di DPU e di tasklets.<br>
+I risultati di ogni test sono riportati nella cartella ```/profile``` creata quando si esegue per la prima volta un'applicazione.
+Vengono in seguito mostrati i grafici relativi ai tempi di trasmissione dati da CPU a DPUs e viceversa e dei tempi di esecuzione dell'algoritmo.
+
 # Istruzioni per compilare ed eseguire
 
 Per eseguire il programma da terminale:
@@ -15,28 +29,6 @@ Per eseguire il programma da terminale:
    ```
    + su un database di punti già esistente eseguire lo script come indicato a seguire:
     ```
-   python3 run.py DB 'full-path-to-db'
+   python3 run.py DB 'full-path-to-db' 'type of dataset' '# of centers to extract'
    ```
    Il database in questione deve contenere un punto per ogni riga, con cordinate separate da virgole. Sono supportati valori di tipo ```float```.
-
-# Note sul codice
-
-La struttura generale del codice segue le linee guide indicate nei [benchmark](https://github.com/CMU-SAFARI/prim-benchmarks) prodotti da SAFARI Research Group.<br>
-La cartella host contiene il codice eseguito nella CPU centrale mentre la cartella dpu contiene il codice che viene eseguito nelle memorie.
-
-Il programma esegue un algoritmo di risoluzione per il problema del k-center clusteringc su un dataset di punti. Il valore dei vari punti, la loro dimensione ed il numero di centri da estrarre sono generati automaticamente.<br>
-I centri vengono calcolati sia dalle DPU che dall'host application così da poter verificare la correttezza dei valori ottenuti. 
-
-Vengono effettuati vari test istanziando un diverso numero di DPU e di tasklets.<br>
-I risultati di ogni test sono riportati nella cartella ```/profile``` creata quando si esegue per la prima volta un'applicazione.
-
-
-# TODO
-I problemi noti/elementi da rivedere sono segnalati nel codice con un conmmento ```//TODO: ...```<br>
-I principali problemi noti al momento sono:
-+ ~~Implementazione della funzione che calcola la distanza tra i vari punti: dataset contenenti punti con valori e/o dimensione elevati generano overflow usando la distanza di Minkowski. Al momento questo problema viene evitato limitando la dimensione massima ad 5 e il valore massimo di ogni punto ad 1000.~~
-+ Sistema di verifica dei risultati genera "falsi negativi": nel caso in cui più centri candidati avessero la stessa distanza minima, l'host e le DPU potrebbero restituire risultati diversi (anche se matematicamente analoghi). Questo è particolarmente evidente quando la dimensione è pari ad 1 ed il numero di collisione è elevato.
-+ ~~Gestione di un'undefined behavior nel file ```app.c``` (commento riga 154).~~
-+ ~~Mancato utilizzo di dataset esterni per verificare l'effettiva correttezza dell'algoritmo.~~
-+ ~~Largo utilizzo di moltiplicazioni all'interno del codice che viene eseguito nelle DPU (sono operazioni molto costose). Questo è in parte risolvibile tramite l'utilizzo di operazioni di bitshift ove possibile.~~
-+ ~~Implementazione di timer per verificare i tempi di esecuzione dell'argoritmo su CPU e su DPU: il simulatore permette infatti di contare accuratemente solo il numero di istruzioni effettuate.~~
